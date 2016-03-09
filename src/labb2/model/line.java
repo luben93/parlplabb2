@@ -29,7 +29,17 @@ public class line extends shape {
     }
 
 
-    public static line shapeFactory(point p, point next) {
+    @Override
+    public shape clone(){
+        return new line();
+    }
+
+    public static shape shapeFactory(point p, point next) {
         return new line(p, next);
+    }
+
+    @Override
+    public String getName() {
+        return "line";
     }
 }

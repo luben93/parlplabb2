@@ -17,6 +17,9 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private GridPane rigth;
 
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;

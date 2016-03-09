@@ -8,5 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 public interface drawable {
     public void execute(GraphicsContext con);
 
-
 }
+
+

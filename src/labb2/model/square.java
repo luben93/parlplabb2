@@ -17,6 +17,10 @@ public class square extends shape {
 
     }
 
+    @Override
+    public shape clone(){
+        return new square();
+    }
 
     private square() {
         //dont come here
@@ -30,7 +34,12 @@ public class square extends shape {
     }
 
 
-    public static square shapeFactory(point p, point next) {
+    public static shape shapeFactory(point p, point next) {
         return new square(p, next);
+    }
+
+    @Override
+    public String getName() {
+        return "square";
     }
 }
