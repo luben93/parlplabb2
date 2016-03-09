@@ -24,4 +24,12 @@ public class point {
     public static point pointFactory(int x,int y){
          return new point(x,y);
     }
+
+    @Override
+    public String toString() {
+        return "point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

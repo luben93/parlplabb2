@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import labb2.model2.Shape;
 import labb2.view.CanvasController;
 import labb2.view.Controller;
 
@@ -16,6 +17,7 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
+    private CanvasController canvasController;
 
 
 
@@ -52,6 +54,9 @@ public class Main extends Application {
     }
 
 
+    public void clicked(Shape a){
+        canvasController.toolClicked(a);
+    }
 
     private void showDrawArea() {
         try {
@@ -64,10 +69,9 @@ public class Main extends Application {
             rootLayout.setCenter(personOverview);
 
             // Give the controller access to the main app.
-            CanvasController controller = loader.getController();
-            controller.setMainApp(this);
-
-            controller.test();
+            canvasController = loader.getController();
+            canvasController.setMainApp(this);
+            canvasController.test();
 
 
         } catch (IOException e) {

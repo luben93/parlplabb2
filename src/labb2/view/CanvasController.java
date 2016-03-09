@@ -3,6 +3,7 @@ package labb2.view;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import labb2.model.point;
 import labb2.model2.PrototypesModule;
 import labb2.model2.Shape;
@@ -12,6 +13,9 @@ public class CanvasController extends Controller {
     @FXML
     private Canvas canvas;
 
+    private Shape current;
+
+    private point start=null;
 
     //TODO add every execute command to stack
 
@@ -49,4 +53,19 @@ public class CanvasController extends Controller {
 
     }
 
+    private void mouseClicked(point p){
+        System.out.println(p);
+    }
+
+
+
+
+    public void toolClicked(Shape a){
+        current=a;
+    }
+
+    @Override
+    protected void initialize() {
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(point.pointFactory((int) t.getX(),(int) t.getY())));
+    }
 }

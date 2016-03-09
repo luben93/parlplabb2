@@ -8,14 +8,17 @@ import labb2.Main;
  */
 public abstract class Controller {
 
-    private Main main;
-
-    @FXML
-    void initialize() {
-
-    }
+     Main main;
+//
+//    @FXML
+//    private void initialize() {
+//
+//    }
 
     public void setMainApp(Main main) {
         this.main = main;
     }
+
+    @FXML
+    protected abstract void initialize();
 }

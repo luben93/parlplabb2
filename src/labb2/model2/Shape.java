@@ -35,4 +35,8 @@ public abstract class Shape implements Prototype, Command {
         this.stop = stop;
     }
 
+    public String toString(){
+        return getName();
+    }
+
 }

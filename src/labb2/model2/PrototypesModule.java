@@ -1,5 +1,9 @@
 package labb2.model2;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static labb2.model2.PrototypeDemo.initializePrototypes;
 
 /**
@@ -7,24 +11,22 @@ import static labb2.model2.PrototypeDemo.initializePrototypes;
  */
 public class PrototypesModule {
     // 2. "registry" of prototypical objs
-    private static Prototype[] prototypes = new Prototype[9];
-    private static int total = 0;
+    private static ArrayList<Prototype> prototypes = new ArrayList<Prototype>();
+//    private static int total = 0;
 
     // Adds a feature to the Prototype attribute of the PrototypesModule class
     // obj  The feature to be added to the Prototype attribute
     public static void addPrototype(Prototype obj) {
-        prototypes[total++] = obj;
+        prototypes.add(obj);
     }
 
-    public static Object findAndClone(String name) {
+    public static Shape findAndClone(String name) {
         // 4. The "virtual ctor"
-        for (int i = 0; i < total; i++) {
-            if (prototypes[i].getName().equals(name)) {
-                return prototypes[i].clone();
-            }
-        }
-        System.out.println(name + " not found");
-        return null;
+        return (Shape) prototypes.stream().filter(prototype -> prototype.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    public static List<String> listNames(){
+        return prototypes.stream().map(Prototype::getName).collect(Collectors.toList());
     }
 
     public static void init(){
