@@ -72,7 +72,9 @@ class Square extends Shape {
             yStart=yStop;
             yStop=tmp;
         }
-        con.fillRect(xStart, yStart,Math.abs(xStop -xStart), Math.abs(yStop -yStart));
+        xStop=Math.abs(xStop -xStart);
+        yStop= Math.abs(yStop -yStart);
+        con.fillRect(xStart, yStart,xStop,yStop);
 //        System.out.println("suqare: execute");
     }
 }
