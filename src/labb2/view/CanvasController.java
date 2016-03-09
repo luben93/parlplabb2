@@ -14,6 +14,11 @@ public class CanvasController extends Controller {
     private Canvas canvas;
 
 
+    //TODO add every execute command to stack
+
+    //TODO when undo is pushed pop stack, empty canvas, foreach command left in stack execute
+
+
     public void test() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 //TODO testing

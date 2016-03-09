@@ -14,7 +14,9 @@ public class square extends shape {
     @Override
     public void execute(GraphicsContext con) {
         con.fillRect(x, y, x2, y2);
+
     }
+
 
     private square() {
         //dont come here
@@ -26,6 +28,7 @@ public class square extends shape {
         this.x2 = p.getX() + s.getX();
         this.y2 = p.getY() + s.getX();
     }
+
 
     public static square shapeFactory(point p, point next) {
         return new square(p, next);
