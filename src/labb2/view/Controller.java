@@ -3,22 +3,20 @@ package labb2.view;
 import javafx.fxml.FXML;
 import labb2.Main;
 
-public class Controller {
-
+/**
+ * Created by luben on 2016-03-09.
+ */
+public abstract class Controller  {
 
     private Main main;
 
     @FXML
-    private void initialize() {
+    void initialize() {
 
     }
-
 
 
     public void setMainApp(Main main) {
         this.main = main;
-
     }
-
-
 }

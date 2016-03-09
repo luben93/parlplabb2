@@ -2,12 +2,11 @@ package labb2;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import labb2.view.CanvasController;
 import labb2.view.Controller;
 
 import java.io.IOException;
@@ -17,7 +16,6 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
-//    private Controller c =null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -27,19 +25,19 @@ public class Main extends Application {
         initRootLayout();
 
         showDrawArea();
-        showToolArea();
-        showAtributesArea();
+        showArea("tools", 0);
+        showArea("attributes", 1);
     }
 
-    private void showToolArea() {
+    private void showArea(String path,int row) {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/tools.fxml"));
+            loader.setLocation(Main.class.getResource("view/"+path+".fxml"));
             GridPane tools = (GridPane) loader.load();
 
             // Set person overview into the center of root layout.
-            rigth.add(tools,0,1);
+            rigth.add(tools, 0, row);
             // Give the controller access to the main app.
             Controller controller = loader.getController();
             controller.setMainApp(this);
@@ -50,25 +48,7 @@ public class Main extends Application {
 
     }
 
-    private void showAtributesArea() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/attributes.fxml"));
-            GridPane atributes = (GridPane) loader.load();
 
-            // Set person overview into the center of root layout.
-            rigth.add(new Separator(Orientation.HORIZONTAL),0,1);
-            rigth.add(atributes,0,2);
-            // Give the controller access to the main app.
-            Controller controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void showDrawArea() {
         try {
@@ -81,8 +61,10 @@ public class Main extends Application {
             rootLayout.setCenter(personOverview);
 
             // Give the controller access to the main app.
-            Controller controller = loader.getController();
+            CanvasController controller = loader.getController();
             controller.setMainApp(this);
+
+            controller.draw();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,11 +83,11 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            rigth=new GridPane();
-            GridPane tmp=new GridPane();
-            tmp.add(new Separator(Orientation.VERTICAL),0,0);
-            tmp.add(rigth,1,0);
-            rootLayout.setRight(tmp);
+            rigth = new GridPane();
+//            GridPane tmp = new GridPane();
+//            tmp.add(new Separator(Orientation.VERTICAL), 0, 0);
+//            tmp.add(rigth, 1, 0);
+            rootLayout.setRight(rigth);
 
 
         } catch (IOException e) {
@@ -113,10 +95,6 @@ public class Main extends Application {
         }
     }
 
-
-//    public void butt(){
-//        c.setLabel("bajs");
-//    }
 
     public static void main(String[] args) {
         launch(args);
