@@ -16,7 +16,7 @@ public class Controller {
 
     @FXML
     private void initialize() {
-        hej = new Label("hello wörld");
+//        hej = new Label();// TODO note to self, dont CREATE @FXMLs in controller
         hej.setText("hejsan");
         System.out.println("init");
     }
@@ -34,6 +34,6 @@ public class Controller {
 
     public void setLabel(String s) {
         System.out.println(s);
-        buttButton.setText(s);
+        hej.setText(s);
     }
 }
