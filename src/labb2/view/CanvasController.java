@@ -13,9 +13,10 @@ public class CanvasController extends Controller {
     @FXML
     private Canvas canvas;
 
-    private Shape current;
+    private Shape current = null;
 
-    private point start=null;
+    private point start = null;
+
 
     //TODO add every execute command to stack
 
@@ -40,10 +41,10 @@ public class CanvasController extends Controller {
 
 
         PrototypesModule.init();
-        Shape line= (Shape) PrototypesModule.findAndClone("line");
-        Shape square= (Shape) PrototypesModule.findAndClone("square");
-        point mid=point.pointFactory(30,30);
-        point end=point.pointFactory(60,60);
+        Shape line = (Shape) PrototypesModule.findAndClone("line");
+        Shape square = (Shape) PrototypesModule.findAndClone("square");
+        point mid = point.pointFactory(30, 30);
+        point end = point.pointFactory(60, 60);
         line.setStop(mid);
         square.setStart(mid);
         square.setStop(end);
@@ -53,19 +54,31 @@ public class CanvasController extends Controller {
 
     }
 
-    private void mouseClicked(point p){
+    private void mouseClicked(point p) {
         System.out.println(p);
+        if (current != null) {
+            {
+                if (start == null) {
+                    System.out.println("started drawing");
+                    start = p;
+                    current.setStart(start);
+                } else {
+                    System.out.println("finished drawing");
+                    current.setStop(p);
+                    start = null;
+                    current.execute(canvas.getGraphicsContext2D());
+                }
+            }
+        }
     }
 
 
-
-
-    public void toolClicked(Shape a){
-        current=a;
+    public void toolClicked(Shape a) {
+        current = a;
     }
 
     @Override
     protected void initialize() {
-        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(point.pointFactory((int) t.getX(),(int) t.getY())));
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(point.pointFactory((int) t.getX(), (int) t.getY())));
     }
 }

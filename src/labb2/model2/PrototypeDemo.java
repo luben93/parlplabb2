@@ -14,7 +14,7 @@ interface Prototype {
 }
 
 // 1. The clone() contract
-interface Command{
+interface Command {
     void execute(GraphicsContext con);
 }
 
@@ -44,13 +44,13 @@ interface Command{
 
 // 5. Sign-up for the clone() contract.
 // Each class calls "new" on itself FOR the client.
-class Square extends Shape  {
-     Square(point start, point stop) {
+class Square extends Shape {
+    Square(point start, point stop) {
         super(start, stop);
     }
 
     public Object clone() {
-        return new Square(start,stop);
+        return new Square(start, stop);
     }
 
     public String getName() {
@@ -58,18 +58,32 @@ class Square extends Shape  {
     }
 
     public void execute(GraphicsContext con) {
-        con.fillRect(start.getX(),start.getY(),start.getX()+stop.getX(),start.getY()+stop.getY());
+        int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
+        int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
+        int xStart = start.getX();
+        int yStart = start.getY();
+        if (xStop < xStart) {
+            int tmp=xStart;
+            xStart=xStop;
+            xStop=tmp;
+        }
+        if (yStop < yStart) {
+            int tmp=yStart;
+            yStart=yStop;
+            yStop=tmp;
+        }
+        con.fillRect(xStart, yStart,Math.abs(xStop -xStart), Math.abs(yStop -yStart));
 //        System.out.println("suqare: execute");
     }
 }
 
 class Line extends Shape {
-     Line(point start, point stop) {
+    Line(point start, point stop) {
         super(start, stop);
     }
 
     public Object clone() {
-        return new Line(start,stop);
+        return new Line(start, stop);
     }
 
     public String getName() {
@@ -77,27 +91,26 @@ class Line extends Shape {
     }
 
     public void execute(GraphicsContext con) {
-        con.strokeLine(start.getX(),start.getY(),start.getX()+stop.getX(),start.getY()+stop.getY());
+        con.strokeLine(start.getX(), start.getY(), stop.getX(), stop.getY());
 //        System.out.println("lien: execute");
     }
 }
 
 
-
 public class PrototypeDemo {
     // 3. Populate the "registry"
     public static void initializePrototypes() {
-        point zero=point.pointFactory(0,0);
-        PrototypesModule.addPrototype(new Line(zero,zero));
-        PrototypesModule.addPrototype(new Square(zero,zero));
+        point zero = point.pointFactory(0, 0);
+        PrototypesModule.addPrototype(new Line(zero, zero));
+        PrototypesModule.addPrototype(new Square(zero, zero));
 //        PrototypesModule.addPrototype(new Shape());
     }
 
     public static void main(String[] args) {
         args = new String[4];
-        args[1]="line";
-        args[2]="square";
-        args[3]="shape";
+        args[1] = "line";
+        args[2] = "square";
+        args[3] = "shape";
         initializePrototypes();
         Object[] objects = new Object[9];
         int total = 0;
