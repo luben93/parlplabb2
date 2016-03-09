@@ -39,7 +39,7 @@ public class Main extends Application {
             GridPane tools = (GridPane) loader.load();
 
             // Set person overview into the center of root layout.
-            rigth.add(tools,0,0);
+            rigth.add(tools,0,1);
             // Give the controller access to the main app.
             Controller controller = loader.getController();
             controller.setMainApp(this);
@@ -102,7 +102,10 @@ public class Main extends Application {
             primaryStage.show();
 
             rigth=new GridPane();
-            rootLayout.setRight(rigth);
+            GridPane tmp=new GridPane();
+            tmp.add(new Separator(Orientation.VERTICAL),0,0);
+            tmp.add(rigth,1,0);
+            rootLayout.setRight(tmp);
 
 
         } catch (IOException e) {
