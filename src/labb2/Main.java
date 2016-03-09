@@ -64,7 +64,8 @@ public class Main extends Application {
             CanvasController controller = loader.getController();
             controller.setMainApp(this);
 
-            controller.draw();
+            controller.test();
+
 
         } catch (IOException e) {
             e.printStackTrace();

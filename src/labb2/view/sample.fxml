@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" prefWidth="400" vgap="10" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.CanvasController">
+<GridPane alignment="center" hgap="10" prefWidth="400" style="-fx-background-color: white;" vgap="10" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.CanvasController">
     <columnConstraints>
 
         <ColumnConstraints />
@@ -16,7 +16,7 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-        <Canvas fx:id="canvas" height="400.0" width="400.0" GridPane.columnIndex="0" />
+        <Canvas fx:id="canvas" height="400.0" styleClass="canvas" width="400.0" GridPane.columnIndex="0" />
       <Separator orientation="VERTICAL" GridPane.columnIndex="1" />
     </children>
 </GridPane>
