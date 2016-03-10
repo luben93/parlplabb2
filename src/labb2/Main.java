@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import labb2.model2.Shape;
+import labb2.model.Shape;
 import labb2.view.CanvasController;
 import labb2.view.Controller;
 
