@@ -13,14 +13,20 @@ public class ToolsController extends Controller {
     private MenuButton shapes;
 
 
+
     @FXML
     @Override
     protected void initialize() {
         for (String o : PrototypesModule.listNames()) {
             MenuItem m = new MenuItem(o);
-            m.setOnAction(e -> main.clicked(PrototypesModule.findAndClone(o)));
+            m.setOnAction(e -> selected(o));
             shapes.getItems().add(m);
         }
+    }
+
+    private void selected(String o){
+        main.clicked(PrototypesModule.findAndClone(o));
+        shapes.setText(o);
     }
 
 }
