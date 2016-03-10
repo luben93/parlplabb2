@@ -6,14 +6,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
+import labb2.model.color;
 import labb2.view.AttributesController;
 import labb2.view.CanvasController;
 import labb2.view.Controller;
 import labb2.view.ToolsController;
 
 import java.io.IOException;
+import java.util.Stack;
 
 public class Main extends Application {
 
@@ -24,6 +27,7 @@ public class Main extends Application {
     private CanvasController canvasController;
     private ToolsController toolsController;
     private AttributesController attributesController;
+    public static Stack<Command> commands=new Stack<>();
 
 
 
@@ -125,5 +129,9 @@ public class Main extends Application {
 
     public Main() {
 
+    }
+
+    public void attributeClicked(Command c) {
+        canvasController.attributeClicked(c);
     }
 }

@@ -4,12 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import labb2.model.Command;
-import labb2.model.Point;
-import labb2.model.PrototypesModule;
-import labb2.model.Shape;
-
-import java.util.Stack;
+import labb2.Main;
+import labb2.model.*;
 
 public class CanvasController extends Controller {
 
@@ -22,7 +18,7 @@ public class CanvasController extends Controller {
 
     private Point start = null;
 
-    private Stack<Shape> commands = new Stack<>();
+//    private Stack<Shape> commands = new Stack<>();
 
 
     //TODO add every execute command to stack
@@ -64,12 +60,12 @@ public class CanvasController extends Controller {
 
     public void undoLast() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        if (!commands.empty()) {
-            Command last = commands.pop();//TODO last set to current??
+        if (!Main.commands.empty()) {
+            Command last = Main.commands.pop();//TODO last set to current??
             System.out.println("pop " + last);
 
 //        commands.forEach(command -> command.execute());
-            commands.forEach(shape -> shape.execute(gc));
+            Main.commands.forEach(shape -> shape.execute(gc));
         }
     }
 
@@ -85,7 +81,7 @@ public class CanvasController extends Controller {
                     System.out.println("finished drawing");
                     current.setStop(p);
                     current.execute(gc);
-                    commands.push(current);
+                    Main.commands.push(current);
 
                     start = null;
 
@@ -103,5 +99,12 @@ public class CanvasController extends Controller {
     protected void initialize() {
         gc = canvas.getGraphicsContext2D();
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(Point.pointFactory((int) t.getX(), (int) t.getY())));
+    }
+
+    public void attributeClicked(Command c) {
+
+        c.execute(gc);
+        Main.commands.push(c);
+
     }
 }

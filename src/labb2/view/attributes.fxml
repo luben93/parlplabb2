@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,41 +10,44 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="center" hgap="10" prefHeight="200" vgap="10" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.AttributesController">
-   <columnConstraints>
-      
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
-         <children>
-            <GridPane fx:id="pane">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
-                  <Label fx:id="tool" text="Label" GridPane.columnIndex="0" />
-               </children>
-            </GridPane>
-         </children>
+    <columnConstraints>
 
-      </AnchorPane>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            <children>
+                <GridPane fx:id="pane">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
+                        <Label fx:id="tool" text="Label" GridPane.columnIndex="0" />
+                        <Label text="color" GridPane.rowIndex="1" />
+                        <ColorPicker fx:id="picker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-       
-      <Separator prefWidth="200.0" GridPane.rowIndex="1" />
-<Label text="attrbutes" GridPane.rowIndex="3" />
-   </children>
+                    </children>
+                </GridPane>
+            </children>
+
+        </AnchorPane>
+
+
+        <Separator prefWidth="200.0" GridPane.rowIndex="1" />
+        <Label text="attrbutes" GridPane.rowIndex="3" />
+    </children>
 </GridPane>
