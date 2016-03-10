@@ -11,13 +11,16 @@ import labb2.view.CanvasController;
 import labb2.view.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
-    private CanvasController canvasController;
+    private List<Controller> controllers=new ArrayList<>();
+
 
 
 
@@ -29,12 +32,12 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showDrawArea();
-        showArea("tools", 0);
-        showArea("attributes", 1);
+        controllers.add(showDrawArea());
+        controllers.add(showArea("tools", 0));
+        controllers.add(showArea("attributes", 1));
     }
 
-    private void showArea(String path,int row) {
+    private Controller showArea(String path,int row) {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -46,19 +49,21 @@ public class Main extends Application {
             // Give the controller access to the main app.
             Controller controller = loader.getController();
             controller.setMainApp(this);
-
+            return controller;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
 
     }
 
 
     public void clicked(Shape a){
-        canvasController.toolClicked(a);
+//        canvasController.toolClicked(a);
+        controllers.forEach(controller -> controller.toolClicked(a));
     }
 
-    private void showDrawArea() {
+    private CanvasController showDrawArea() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -69,14 +74,15 @@ public class Main extends Application {
             rootLayout.setCenter(personOverview);
 
             // Give the controller access to the main app.
-            canvasController = loader.getController();
+            CanvasController canvasController = loader.getController();
             canvasController.setMainApp(this);
             canvasController.test();
-
+            return canvasController;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void initRootLayout() {

@@ -2,6 +2,7 @@ package labb2.view;
 
 import javafx.fxml.FXML;
 import labb2.Main;
+import labb2.model.Shape;
 
 /**
  * Created by luben on 2016-03-09.
@@ -20,5 +21,7 @@ public abstract class Controller {
     }
 
     @FXML
-    protected abstract void initialize();
+    abstract void initialize();
+
+    public abstract void toolClicked(Shape a);
 }
