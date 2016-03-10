@@ -22,7 +22,7 @@ public class CanvasController extends Controller {
 
     private Point start = null;
 
-    private Stack<Shape> commands=new Stack<>();
+    private Stack<Shape> commands = new Stack<>();
 
 
     //TODO add every execute command to stack
@@ -49,7 +49,7 @@ public class CanvasController extends Controller {
         PrototypesModule.init();
         Shape line = (Shape) PrototypesModule.findAndClone("line");
         Shape square = (Shape) PrototypesModule.findAndClone("square");
-        Point zero =Point.pointFactory(0,0);
+        Point zero = Point.pointFactory(0, 0);
         Point mid = Point.pointFactory(30, 30);
         Point end = Point.pointFactory(60, 60);
         line.setStart(zero);
@@ -62,14 +62,15 @@ public class CanvasController extends Controller {
 
     }
 
-    public void undoLast(){
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-
-        Command last=commands.pop();//TODO last set to current??
-                System.out.println("pop "+last);
+    public void undoLast() {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        if (!commands.empty()) {
+            Command last = commands.pop();//TODO last set to current??
+            System.out.println("pop " + last);
 
 //        commands.forEach(command -> command.execute());
-        commands.forEach(shape -> shape.execute(gc));
+            commands.forEach(shape -> shape.execute(gc));
+        }
     }
 
     private void mouseClicked(Point p) {
