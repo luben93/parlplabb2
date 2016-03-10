@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import labb2.model.PrototypesModule;
 import labb2.model.Shape;
 import labb2.view.AttributesController;
 import labb2.view.CanvasController;
@@ -33,6 +34,8 @@ public class Main extends Application {
         this.primaryStage.setTitle("VectorDrawer");
 
         initRootLayout();
+        PrototypesModule.init();
+
 
         canvasController=showDrawArea();
         toolsController= (ToolsController) showArea("tools", 0);
