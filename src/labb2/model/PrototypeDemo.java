@@ -1,8 +1,7 @@
-package labb2.model2;
+package labb2.model;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import labb2.model.point;
 
 /**
  * Created by luben on 2016-03-09.
@@ -45,7 +44,7 @@ interface Command {
 // 5. Sign-up for the clone() contract.
 // Each class calls "new" on itself FOR the client.
 class Square extends Shape {
-    Square(point start, point stop) {
+    Square(Point start, Point stop) {
         super(start, stop);
     }
 
@@ -80,7 +79,7 @@ class Square extends Shape {
 }
 
 class Line extends Shape {
-    Line(point start, point stop) {
+    Line(Point start, Point stop) {
         super(start, stop);
     }
 
@@ -102,7 +101,7 @@ class Line extends Shape {
 public class PrototypeDemo {
     // 3. Populate the "registry"
     public static void initializePrototypes() {
-        point zero = point.pointFactory(0, 0);
+        Point zero = Point.pointFactory(0, 0);
         PrototypesModule.addPrototype(new Line(zero, zero));
         PrototypesModule.addPrototype(new Square(zero, zero));
 //        PrototypesModule.addPrototype(new Shape());

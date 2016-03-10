@@ -1,10 +1,10 @@
-package labb2.model2;
+package labb2.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static labb2.model2.PrototypeDemo.initializePrototypes;
+import static labb2.model.PrototypeDemo.initializePrototypes;
 
 /**
  * Created by luben on 2016-03-09.

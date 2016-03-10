@@ -1,35 +1,33 @@
-package labb2.model2;
-
-import labb2.model.point;
+package labb2.model;
 
 /**
  * Created by luben on 2016-03-09.
  */
 public abstract class Shape implements Prototype, Command {
-    point start;
-    point stop;
+    Point start;
+    Point stop;
 
     public Object clone() {
         return null;
     }
 
-    public point getStart() {
+    public Point getStart() {
         return start;
     }
 
-    public void setStart(point start) {
+    public void setStart(Point start) {
         this.start = start;
     }
 
-    public point getStop() {
+    public Point getStop() {
         return stop;
     }
 
-    public void setStop(point stop) {
+    public void setStop(Point stop) {
         this.stop = stop;
     }
 
-    Shape(point start, point stop){
+    Shape(Point start, Point stop){
 
         this.start = start;
         this.stop = stop;
