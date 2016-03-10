@@ -40,5 +40,6 @@ public class AttributesController extends Controller {
     @Override
     public void toolClicked(Shape a) {
         tool.setText(a.getName());
+        //TODO show relevent attributes for prototype
     }
 }
