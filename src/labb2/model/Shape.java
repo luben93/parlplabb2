@@ -33,8 +33,15 @@ public abstract class Shape implements Prototype, Command {
         this.stop = stop;
     }
 
-    public String toString(){
-        return getName();
-    }
+//    public String toString(){
+//        return getName();
+//    }
 
+    @Override
+    public String toString() {
+        return "Shape "+getName()+" {" +
+                "start=" + start +
+                ", stop=" + stop +
+                '}';
+    }
 }

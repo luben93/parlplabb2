@@ -7,20 +7,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import labb2.model.Shape;
+import labb2.view.AttributesController;
 import labb2.view.CanvasController;
 import labb2.view.Controller;
+import labb2.view.ToolsController;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
-    private List<Controller> controllers=new ArrayList<>();
-
+//    private List<Controller> controllers=new ArrayList<>();
+    private CanvasController canvasController;
+    private ToolsController toolsController;
+    private AttributesController attributesController;
 
 
 
@@ -32,9 +34,9 @@ public class Main extends Application {
 
         initRootLayout();
 
-        controllers.add(showDrawArea());
-        controllers.add(showArea("tools", 0));
-        controllers.add(showArea("attributes", 1));
+        canvasController=showDrawArea();
+        toolsController= (ToolsController) showArea("tools", 0);
+        attributesController= (AttributesController) showArea("attributes", 1);
     }
 
     private Controller showArea(String path,int row) {
@@ -57,10 +59,14 @@ public class Main extends Application {
 
     }
 
+    public void undo(){
+        canvasController.undoLast();
+    }
 
     public void clicked(Shape a){
-//        canvasController.toolClicked(a);
-        controllers.forEach(controller -> controller.toolClicked(a));
+        canvasController.toolClicked(a);
+        attributesController.toolClicked(a);
+//        controllers.forEach(controller -> controller.toolClicked(a));
     }
 
     private CanvasController showDrawArea() {

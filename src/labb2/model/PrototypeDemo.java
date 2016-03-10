@@ -12,11 +12,6 @@ interface Prototype {
     String getName();
 }
 
-// 1. The clone() contract
-interface Command {
-    void execute(GraphicsContext con);
-}
-
 
 //class PrototypesModule {
 //    // 2. "registry" of prototypical objs
@@ -93,8 +88,10 @@ class Line extends Shape {
 
     public void execute(GraphicsContext con) {
         con.strokeLine(start.getX(), start.getY(), stop.getX(), stop.getY());
+        System.out.println(this);
 //        System.out.println("lien: execute");
     }
+
 }
 
 

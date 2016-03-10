@@ -22,6 +22,6 @@ public class AttributesController extends Controller {
 
     @Override
     public void toolClicked(Shape a) {
-        tool.setText(a.toString());
+        tool.setText(a.getName());
     }
 }

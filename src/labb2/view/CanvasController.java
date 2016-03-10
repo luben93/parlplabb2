@@ -4,18 +4,25 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import labb2.model.Command;
 import labb2.model.Point;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
+
+import java.util.Stack;
 
 public class CanvasController extends Controller {
 
     @FXML
     private Canvas canvas;
 
+    private GraphicsContext gc;
+
     private Shape current = null;
 
     private Point start = null;
+
+    private Stack<Shape> commands=new Stack<>();
 
 
     //TODO add every execute command to stack
@@ -24,7 +31,6 @@ public class CanvasController extends Controller {
 
 
     public void test() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
 //TODO testing
 //        gc.setFill(Color.BLUE);
 //        gc.fillRect(75, 75, 100, 100);
@@ -43,8 +49,10 @@ public class CanvasController extends Controller {
         PrototypesModule.init();
         Shape line = (Shape) PrototypesModule.findAndClone("line");
         Shape square = (Shape) PrototypesModule.findAndClone("square");
+        Point zero =Point.pointFactory(0,0);
         Point mid = Point.pointFactory(30, 30);
         Point end = Point.pointFactory(60, 60);
+        line.setStart(zero);
         line.setStop(mid);
         square.setStart(mid);
         square.setStop(end);
@@ -52,6 +60,16 @@ public class CanvasController extends Controller {
         square.execute(gc);
 
 
+    }
+
+    public void undoLast(){
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+
+        Command last=commands.pop();//TODO last set to current??
+                System.out.println("pop "+last);
+
+//        commands.forEach(command -> command.execute());
+        commands.forEach(shape -> shape.execute(gc));
     }
 
     private void mouseClicked(Point p) {
@@ -65,8 +83,11 @@ public class CanvasController extends Controller {
                 } else {
                     System.out.println("finished drawing");
                     current.setStop(p);
+                    current.execute(gc);
+                    commands.push(current);
+
                     start = null;
-                    current.execute(canvas.getGraphicsContext2D());
+
                 }
             }
         }
@@ -79,6 +100,7 @@ public class CanvasController extends Controller {
 
     @Override
     protected void initialize() {
+        gc = canvas.getGraphicsContext2D();
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(Point.pointFactory((int) t.getX(), (int) t.getY())));
     }
 }

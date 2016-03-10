@@ -10,6 +10,7 @@ import labb2.model.Shape;
 public abstract class Controller {
 
      Main main;
+
 //
 //    @FXML
 //    private void initialize() {
@@ -24,4 +25,6 @@ public abstract class Controller {
     abstract void initialize();
 
     public abstract void toolClicked(Shape a);
+
+
 }
