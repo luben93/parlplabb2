@@ -14,6 +14,7 @@ import labb2.view.CanvasController;
 import labb2.view.Controller;
 import labb2.view.ToolsController;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Stack;
 
@@ -25,8 +26,7 @@ public class Main extends Application {
     private CanvasController canvasController;
     private ToolsController toolsController;
     private AttributesController attributesController;
-    public static Stack<Command> commands=new Stack<>();
-
+    private static Stack<Command> commands = new Stack<>();
 
 
 
@@ -34,17 +34,26 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("VectorDrawer");
-
         initRootLayout();
         PrototypesModule.init();
 
-
         canvasController=showDrawArea();
+        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK));
+
         toolsController= (ToolsController) showArea("tools", 0);
         attributesController= (AttributesController) showArea("attributes", 1);
     }
 
-    private Controller showArea(String path,int row) {
+
+//    public ObservableList<Command> getObservableCommands() {
+//        return observableCommands;
+//    }
+
+    public static Stack<Command> getCommands() {
+        return commands;
+    }
+
+    private Controller showArea(String path, int row) {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();

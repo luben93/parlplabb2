@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import labb2.Main;
-import labb2.model.*;
+import labb2.model.Command;
+import labb2.model.Point;
+import labb2.model.PrototypesModule;
+import labb2.model.Shape;
 
 public class CanvasController extends Controller {
 
@@ -36,10 +38,10 @@ public class CanvasController extends Controller {
 
     public void undoLast() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        if (!Main.commands.empty()) {
-            Command last = Main.commands.pop();//TODO last set to current??
+        if (!main.getCommands().empty()) {
+            Command last = main.getCommands().pop();//TODO last set to current??
             System.out.println("pop " + last);
-            Main.commands.forEach(shape -> shape.execute(gc));
+            main.getCommands().forEach(shape -> shape.execute(gc));
         }
     }
 
@@ -52,7 +54,7 @@ public class CanvasController extends Controller {
             } else {
                 current.setStop(p);
                 current.execute(gc);
-                Main.commands.push(current);
+                main.getCommands().push(current);
                 start = null;
                 current= (Shape) current.clone();
             }
@@ -72,6 +74,6 @@ public class CanvasController extends Controller {
 
     public void attributeClicked(Command c) {
         c.execute(gc);
-        Main.commands.push(c);
+        main.getCommands().push(c);
     }
 }
