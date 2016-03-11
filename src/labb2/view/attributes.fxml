@@ -11,20 +11,20 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="200" vgap="10" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.AttributesController">
     <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 
         <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />        <RowConstraints />
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />
     </rowConstraints>
     <children>
 
-        <Label text="attrbutes" GridPane.rowIndex="3" />
-        <Label fx:id="tool" text="Label" GridPane.columnIndex="1" />
+        <!--<Label text="attrbutes" GridPane.rowIndex="3" GridPane.columnIndex="0"/>-->
+        <!--<Label fx:id="tool" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />-->
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4" fx:id="anchorPane">
             <children>
 
@@ -39,6 +39,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
+                        <!--<Label text="attrbutes" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
+                        <Label fx:id="tool" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
                         <!--<Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />-->
                         <!---->
                         <!--<Label text="color" GridPane.rowIndex="1" />-->

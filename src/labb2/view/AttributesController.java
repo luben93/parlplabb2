@@ -38,7 +38,7 @@ public class AttributesController extends Controller {
 //        System.out.printf("hej");
             attribute.setOnAction(event -> main.attributeClicked((attributes) PrototypesModule.findAndCloneAttributes(s, attribute.getValue())));
             attribute.setValue(Color.BLACK);
-            pane.addRow(row++, new Label(s), attribute);
+            pane.addRow(row++, new Label(s),new Label(" "), attribute);
         }else if(s.equals("something else")){
             //TODO
         }
@@ -51,6 +51,7 @@ public class AttributesController extends Controller {
         anchorPane.getChildren().removeAll(pane);
         pane = new GridPane();
         anchorPane.getChildren().add(pane);
+        pane.addRow(0,new Label("attributes"),new Label("   "),tool);
         tool.setText(a.getName());
         a.getAttributes().forEach(s -> addAttribute(s));
     }
