@@ -17,7 +17,8 @@ public class PrototypesModule {
     }
 
     public static Prototype findAndClone(String name) {
-        return  prototypes.stream().filter(prototype -> prototype.getName().equals(name)).findFirst().orElse(null);
+        Prototype p= (Prototype) prototypes.stream().filter(prototype -> prototype.getName().equals(name)).findFirst().orElse(null);
+        return (Prototype) p.clone();
     }
 
     public static Prototype findAndCloneAttributes(String name, Object o){

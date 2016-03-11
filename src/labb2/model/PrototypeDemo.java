@@ -124,6 +124,7 @@ class Line extends Shape {
     }
 
     public Object clone() {
+        System.out.printf("clone");
         return new Line(start, stop);
     }
 
