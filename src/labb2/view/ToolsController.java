@@ -23,7 +23,7 @@ public class ToolsController extends Controller {
     @Override
     protected void initialize() {
         //shapes.getItems().add(new MenuItem("select"));
-        PrototypesModule.listNames().forEach(s -> shapes.getItems().add(new MenuItem(s)));
+        PrototypesModule.listShapeNames().forEach(s -> shapes.getItems().add(new MenuItem(s)));
         shapes.getItems().forEach(menuItem -> menuItem.setOnAction(event -> selected(menuItem.getText())));
 
     }
@@ -34,7 +34,7 @@ public class ToolsController extends Controller {
     }
 
     private void selected(String o){
-        main.clicked(PrototypesModule.findAndClone(o));
+        main.clicked((Shape) PrototypesModule.findAndClone(o));
         shapes.setText(o);
     }
 

@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.ToolsController">
-    <AnchorPane prefHeight="400.0" prefWidth="200.0">
+    <AnchorPane prefHeight="200.0" prefWidth="200.0">
     <children>
    <Label text="tools" />
-         <MenuButton fx:id="shapes" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" text="MenuButton">
+         <MenuButton fx:id="shapes" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" text="shapes">
            <items>
 
            </items>
