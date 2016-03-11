@@ -22,7 +22,6 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
-//    private List<Controller> controllers=new ArrayList<>();
     private CanvasController canvasController;
     private ToolsController toolsController;
     private AttributesController attributesController;
@@ -52,7 +51,6 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/"+path+".fxml"));
             GridPane tools = (GridPane) loader.load();
 
-            // Set person overview into the center of root layout.
             rigth.add(tools, 0, row);
             // Give the controller access to the main app.
             Controller controller = loader.getController();
@@ -72,7 +70,6 @@ public class Main extends Application {
     public void clicked(Shape a){
         canvasController.toolClicked(a);
         attributesController.toolClicked(a);
-//        controllers.forEach(controller -> controller.toolClicked(a));
     }
 
     private CanvasController showDrawArea() {
@@ -110,9 +107,6 @@ public class Main extends Application {
             primaryStage.show();
 
             rigth = new GridPane();
-//            GridPane tmp = new GridPane();
-//            tmp.add(new Separator(Orientation.VERTICAL), 0, 0);
-//            tmp.add(rigth, 1, 0);
             rootLayout.setRight(rigth);
 
 

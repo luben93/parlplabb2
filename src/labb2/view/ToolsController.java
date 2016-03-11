@@ -14,15 +14,9 @@ public class ToolsController extends Controller {
     private MenuButton shapes;
 
 
-//    @FXML
-//    private Button select, undo;
-
-
-
     @FXML
     @Override
     protected void initialize() {
-        //shapes.getItems().add(new MenuItem("select"));
         PrototypesModule.listShapeNames().forEach(s -> shapes.getItems().add(new MenuItem(s)));
         shapes.getItems().forEach(menuItem -> menuItem.setOnAction(event -> selected(menuItem.getText())));
 
