@@ -20,13 +20,21 @@ public class PrototypesModule {
         prototypes.add(obj);
     }
 
-    public static Shape findAndClone(String name) {
+    public static Prototype findAndClone(String name) {
         // 4. The "virtual ctor"
-        return (Shape) prototypes.stream().filter(prototype -> prototype.getName().equals(name)).findFirst().orElse(null);
+        return  prototypes.stream().filter(prototype -> prototype.getName().equals(name)).findFirst().orElse(null);
     }
 
-    public static List<String> listNames(){
-        return prototypes.stream().map(Prototype::getName).collect(Collectors.toList());
+    public static Prototype findAndCloneAttributes(String name, Object o){
+        Attributes a = (Attributes) findAndClone(name);
+        a.setAttrbute(o);
+        return a;
+    }
+
+    public static List<String> listShapeNames(){
+//        return prototypes.stream().map(Prototype::getName).collect(Collectors.toList());
+        return prototypes.stream().filter(prototype -> prototype instanceof Shape ).map(Prototype::getName).collect(Collectors.toList());
+
     }
 
     public static void init(){

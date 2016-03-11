@@ -4,8 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import labb2.model.Shape;
-import labb2.model.color;
+import labb2.model.*;
 
 /**
  * Created by luben on 2016-03-09.
@@ -17,29 +16,28 @@ public class AttributesController extends Controller {
     @FXML
     private Label tool;
 
-    @FXML
-    private ColorPicker picker;
+
+    private int row=1;
+//    private ColorPicker fill;
+//    private ColorPicker stroke;
 
 
     @Override
     protected void initialize() {
-        picker.setOnAction(event -> colorPicked());
     }
 
-
-//
-    private void colorPicked(){
-        System.out.println("lucas "+picker.getValue());
-        color c=color.colorFactory(picker.getValue());
-//        c.execute();
-//        Main.commands.push()
-        main.attributeClicked(c);
+    private void addAttribute(String s){
+        ColorPicker attribute=new ColorPicker();
+        pane.addRow( row++,new Label(s),attribute);
+        System.out.printf("hej");
+        attribute.setOnAction(event -> main.attributeClicked( (Attributes) PrototypesModule.findAndCloneAttributes(s,attribute)));
     }
-
 
     @Override
     public void toolClicked(Shape a) {
+
         tool.setText(a.getName());
         //TODO show relevent attributes for prototype
+        a.getAttributes().forEach(s -> addAttribute(s));
     }
 }

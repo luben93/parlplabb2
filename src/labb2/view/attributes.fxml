@@ -37,8 +37,8 @@
                     <children>
                         <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
                         <Label fx:id="tool" text="Label" GridPane.columnIndex="0" />
-                        <Label text="color" GridPane.rowIndex="1" />
-                        <ColorPicker fx:id="picker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <!--<Label text="color" GridPane.rowIndex="1" />-->
+                        <!--<ColorPicker fx:id="picker" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
 
                     </children>
                 </GridPane>

@@ -1,11 +1,15 @@
 package labb2.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by luben on 2016-03-09.
  */
 public abstract class Shape implements Prototype, Command {
     Point start;
     Point stop;
+    private List<String> attributes=new ArrayList<>();
 
     public Object clone() {
         return null;
@@ -36,6 +40,12 @@ public abstract class Shape implements Prototype, Command {
 //    public String toString(){
 //        return getName();
 //    }
+
+
+    public List<String> getAttributes(){
+//        List out =new ArrayList<String>();
+        return attributes;
+    }
 
     @Override
     public String toString() {

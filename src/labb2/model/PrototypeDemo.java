@@ -2,6 +2,7 @@ package labb2.model;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Created by luben on 2016-03-09.
@@ -10,6 +11,86 @@ interface Prototype {
     Object clone();
 
     String getName();
+}
+
+class Fill extends Attributes {
+    private Color color;
+
+    @Override
+    public void execute(GraphicsContext con) {
+        con.setFill(color);
+    }
+
+    @Override
+    public Object clone() {
+        return Fill.attributeFactory(color);
+    }
+
+    @Override
+    public void setAttrbute(Object o) {
+        if (o.getClass().equals(Color.class)) {
+//            Fill tmp = new Fill();
+            color = (Color) o;
+//            return this;
+        }
+//        return null;
+
+    }
+
+
+    public static Attributes attributeFactory(Object o) {
+//        if (o.getClass().equals(Color.class)) {
+        Fill tmp = new Fill();
+        tmp.setAttrbute(o);
+        return tmp;
+//        }
+//        return null;
+    }
+
+    @Override
+    public String getName() {
+        return "fill";
+    }
+}
+
+
+class Stroke extends Attributes {
+    private Color color;
+
+    @Override
+    public void execute(GraphicsContext con) {
+        con.setStroke(color);
+        System.out.printf("execute stroke");
+    }
+
+    @Override
+    public Object clone() {
+        return Stroke.attributeFactory(color);
+    }
+
+    @Override
+    public void setAttrbute(Object o) {
+        if (o.getClass().equals(Color.class)) {
+            color = (Color) o;
+//            return this;
+        }
+//        return null;
+    }
+
+
+    public static Attributes attributeFactory(Object o) {
+//        if (o.getClass().equals(Color.class)) {
+        Stroke tmp = new Stroke();
+        tmp.setAttrbute(o);
+        return tmp;
+//        }
+//        return null;
+    }
+
+    @Override
+    public String getName() {
+        return "stroke";
+    }
 }
 
 
@@ -41,6 +122,8 @@ interface Prototype {
 class Square extends Shape {
     Square(Point start, Point stop) {
         super(start, stop);
+        getAttributes().add("fill");
+
     }
 
     public Object clone() {
@@ -57,18 +140,18 @@ class Square extends Shape {
         int xStart = start.getX();
         int yStart = start.getY();
         if (xStop < xStart) {
-            int tmp=xStart;
-            xStart=xStop;
-            xStop=tmp;
+            int tmp = xStart;
+            xStart = xStop;
+            xStop = tmp;
         }
         if (yStop < yStart) {
-            int tmp=yStart;
-            yStart=yStop;
-            yStop=tmp;
+            int tmp = yStart;
+            yStart = yStop;
+            yStop = tmp;
         }
-        xStop=Math.abs(xStop -xStart);
-        yStop= Math.abs(yStop -yStart);
-        con.fillRect(xStart, yStart,xStop,yStop);
+        xStop = Math.abs(xStop - xStart);
+        yStop = Math.abs(yStop - yStart);
+        con.fillRect(xStart, yStart, xStop, yStop);
 //        System.out.println("suqare: execute");
     }
 }
@@ -76,6 +159,7 @@ class Square extends Shape {
 class Line extends Shape {
     Line(Point start, Point stop) {
         super(start, stop);
+        getAttributes().add("stroke");
     }
 
     public Object clone() {
@@ -101,6 +185,8 @@ public class PrototypeDemo {
         Point zero = Point.pointFactory(0, 0);
         PrototypesModule.addPrototype(new Line(zero, zero));
         PrototypesModule.addPrototype(new Square(zero, zero));
+        PrototypesModule.addPrototype(new Fill());
+        PrototypesModule.addPrototype(new Stroke());
 //        PrototypesModule.addPrototype(new Shape());
     }
 

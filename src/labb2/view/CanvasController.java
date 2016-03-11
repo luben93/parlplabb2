@@ -42,7 +42,7 @@ public class CanvasController extends Controller {
 //        square.shapeFactory(pointFactory(70,70), pointFactory(5,5)).execute(gc);
 
 
-        PrototypesModule.init();
+//        PrototypesModule.init();
         Shape line = (Shape) PrototypesModule.findAndClone("line");
         Shape square = (Shape) PrototypesModule.findAndClone("square");
         Point zero = Point.pointFactory(0, 0);

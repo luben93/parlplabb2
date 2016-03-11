@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
-import labb2.model.color;
 import labb2.view.AttributesController;
 import labb2.view.CanvasController;
 import labb2.view.Controller;
