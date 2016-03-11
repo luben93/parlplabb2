@@ -24,26 +24,32 @@ public class AttributesController extends Controller {
     private AnchorPane anchorPane;
 
 
-    private int row=1;
+    private int row = 1;
 
 
     @Override
     protected void initialize() {
-        pane=new GridPane();
+        pane = new GridPane();
     }
 
-    private void addAttribute(String s){
-        ColorPicker attribute=new ColorPicker();//TODO check attribute object/tool type??
-        pane.addRow( row++,new Label(s),attribute);
+    private void addAttribute(String s) {
+        if (s.equals("fill") || s.equals("stroke")) {
+            ColorPicker attribute = new ColorPicker();//TODO check attribute object/tool type??
 //        System.out.printf("hej");
-        attribute.setOnAction(event -> main.attributeClicked( (attributes) PrototypesModule.findAndCloneAttributes(s,attribute.getValue())));
-        attribute.setValue(Color.BLACK);
+            attribute.setOnAction(event -> main.attributeClicked((attributes) PrototypesModule.findAndCloneAttributes(s, attribute.getValue())));
+            attribute.setValue(Color.BLACK);
+            pane.addRow(row++, new Label(s), attribute);
+        }else if(s.equals("something else")){
+            //TODO
+        }
+
+
     }
 
     @Override
     public void toolClicked(Shape a) {
         anchorPane.getChildren().removeAll(pane);
-        pane=new GridPane();
+        pane = new GridPane();
         anchorPane.getChildren().add(pane);
         tool.setText(a.getName());
         a.getAttributes().forEach(s -> addAttribute(s));
