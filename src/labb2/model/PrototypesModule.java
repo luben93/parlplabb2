@@ -27,8 +27,12 @@ public class PrototypesModule {
 
     public static Prototype findAndCloneAttributes(String name, Object o){
         Attributes a = (Attributes) findAndClone(name);
+        System.out.println(a);
         a.setAttrbute(o);
+        System.out.println(a);
+        System.out.println(o);
         return a;
+
     }
 
     public static List<String> listShapeNames(){

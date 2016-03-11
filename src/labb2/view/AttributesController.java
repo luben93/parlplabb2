@@ -34,7 +34,7 @@ public class AttributesController extends Controller {
         ColorPicker attribute=new ColorPicker();
         pane.addRow( row++,new Label(s),attribute);
         System.out.printf("hej");
-        attribute.setOnAction(event -> main.attributeClicked( (Attributes) PrototypesModule.findAndCloneAttributes(s,attribute)));
+        attribute.setOnAction(event -> main.attributeClicked( (Attributes) PrototypesModule.findAndCloneAttributes(s,attribute.getValue())));
     }
 
     @Override

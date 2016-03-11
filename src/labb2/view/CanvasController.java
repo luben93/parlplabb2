@@ -102,9 +102,7 @@ public class CanvasController extends Controller {
     }
 
     public void attributeClicked(Command c) {
-
         c.execute(gc);
         Main.commands.push(c);
-
     }
 }

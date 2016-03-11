@@ -28,7 +28,7 @@ class Fill extends Attributes {
 
     @Override
     public void setAttrbute(Object o) {
-        if (o.getClass().equals(Color.class)) {
+        if (o instanceof Color) {
 //            Fill tmp = new Fill();
             color = (Color) o;
 //            return this;
@@ -60,7 +60,7 @@ class Stroke extends Attributes {
     @Override
     public void execute(GraphicsContext con) {
         con.setStroke(color);
-        System.out.printf("execute stroke "+con);
+        System.out.printf("execute stroke "+con + " "+ color);
     }
 
     @Override
@@ -70,9 +70,11 @@ class Stroke extends Attributes {
 
     @Override
     public void setAttrbute(Object o) {
-        if (o.getClass().equals(Color.class)) {
+        if (o instanceof Color) {
             color = (Color) o;
 //            return this;
+        }else{
+            System.out.printf(o.toString());
         }
 //        return null;
     }
