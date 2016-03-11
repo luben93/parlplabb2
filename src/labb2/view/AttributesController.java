@@ -3,6 +3,7 @@ package labb2.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import labb2.model.*;
 
@@ -15,6 +16,8 @@ public class AttributesController extends Controller {
     private GridPane pane;
     @FXML
     private Label tool;
+    @FXML
+    private AnchorPane anchorPane;
 
 
     private int row=1;
@@ -24,6 +27,7 @@ public class AttributesController extends Controller {
 
     @Override
     protected void initialize() {
+        pane=new GridPane();
     }
 
     private void addAttribute(String s){
@@ -35,7 +39,9 @@ public class AttributesController extends Controller {
 
     @Override
     public void toolClicked(Shape a) {
-
+        anchorPane.getChildren().removeAll(pane);
+        pane=new GridPane();
+        anchorPane.getChildren().add(pane);
         tool.setText(a.getName());
         //TODO show relevent attributes for prototype
         a.getAttributes().forEach(s -> addAttribute(s));

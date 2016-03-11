@@ -60,7 +60,7 @@ class Stroke extends Attributes {
     @Override
     public void execute(GraphicsContext con) {
         con.setStroke(color);
-        System.out.printf("execute stroke");
+        System.out.printf("execute stroke "+con);
     }
 
     @Override
@@ -172,7 +172,7 @@ class Line extends Shape {
 
     public void execute(GraphicsContext con) {
         con.strokeLine(start.getX(), start.getY(), stop.getX(), stop.getY());
-        System.out.println(this);
+        System.out.println(this+" "+con);
 //        System.out.println("lien: execute");
     }
 
