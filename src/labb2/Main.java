@@ -1,6 +1,8 @@
 package labb2;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -16,7 +18,6 @@ import labb2.view.ToolsController;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.Stack;
 
 public class Main extends Application {
 
@@ -26,8 +27,8 @@ public class Main extends Application {
     private CanvasController canvasController;
     private ToolsController toolsController;
     private AttributesController attributesController;
-    private static Stack<Command> commands = new Stack<>();
-
+    //    private static Stack<Command> commands = new Stack<>();
+    private ObservableList<Command> commands = FXCollections.observableArrayList();
 
 
     @Override
@@ -37,11 +38,11 @@ public class Main extends Application {
         initRootLayout();
         PrototypesModule.init();
 
-        canvasController=showDrawArea();
+        canvasController = showDrawArea();
         canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK));
 
-        toolsController= (ToolsController) showArea("tools", 0);
-        attributesController= (AttributesController) showArea("attributes", 1);
+        toolsController = (ToolsController) showArea("tools", 0);
+        attributesController = (AttributesController) showArea("attributes", 1);
     }
 
 
@@ -49,7 +50,7 @@ public class Main extends Application {
 //        return observableCommands;
 //    }
 
-    public static Stack<Command> getCommands() {
+    public ObservableList<Command> getCommands() {
         return commands;
     }
 
@@ -57,7 +58,7 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/"+path+".fxml"));
+            loader.setLocation(Main.class.getResource("view/" + path + ".fxml"));
             GridPane tools = (GridPane) loader.load();
 
             rigth.add(tools, 0, row);
@@ -72,11 +73,11 @@ public class Main extends Application {
 
     }
 
-    public void undo(){
+    public void undo() {
         canvasController.undoLast();
     }
 
-    public void clicked(Shape a){
+    public void clicked(Shape a) {
         canvasController.toolClicked(a);
         attributesController.toolClicked(a);
     }

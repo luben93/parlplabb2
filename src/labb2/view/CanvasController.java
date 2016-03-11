@@ -38,8 +38,8 @@ public class CanvasController extends Controller {
 
     public void undoLast() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        if (!main.getCommands().empty()) {
-            Command last = main.getCommands().pop();//TODO last set to current??
+        if (!main.getCommands().isEmpty()) {
+            Command last = main.getCommands().remove(main.getCommands().size()-1);//TODO last set to current??
             System.out.println("pop " + last);
             main.getCommands().forEach(shape -> shape.execute(gc));
         }
@@ -54,7 +54,7 @@ public class CanvasController extends Controller {
             } else {
                 current.setStop(p);
                 current.execute(gc);
-                main.getCommands().push(current);
+                main.getCommands().add(current);
                 start = null;
                 current= (Shape) current.clone();
             }
@@ -74,6 +74,6 @@ public class CanvasController extends Controller {
 
     public void attributeClicked(Command c) {
         c.execute(gc);
-        main.getCommands().push(c);
+        main.getCommands().add(c);
     }
 }

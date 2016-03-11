@@ -1,7 +1,6 @@
 package labb2.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -25,7 +24,7 @@ public class ToolsController extends Controller {
     @FXML
     private MenuButton commands;
 
-    private ObservableList<Command> observableCommands= FXCollections.observableList(Main.getCommands());
+//    private ObservableList<Command> observableCommands= FXCollections.observableList(Main.getCommands());
 
     @FXML
     @Override
@@ -35,13 +34,22 @@ public class ToolsController extends Controller {
 
 
 //        observableCommands.setAll(Main.getCommands());
-//        observableCommands.addListener((ListChangeListener<? super Command>) observable ->);
+//        main.getCommands().addListener((ListChangeListener<? super Command>) observable -> {
+//            System.out.printf("hej");
+//        });
 //        observableCommands.add((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK));
 //        undoList.setItems(observableCommands);
 //        commandColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
 //        commands.getItems().addAll();
 
     }
+
+    @Override
+    public void setMainApp(Main main) {
+        this.main = main;
+        main.getCommands().addListener((ListChangeListener<? super Command>) observable -> System.out.printf("hej"));//TODO add menuItem on listener
+    }
+
 
     @Override
     public void toolClicked(Shape a) {
