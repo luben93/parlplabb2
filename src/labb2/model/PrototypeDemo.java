@@ -12,7 +12,7 @@ interface Prototype {
     String getName();
 }
 
-class Fill extends Attributes {
+class Fill extends attributes {
     private Color color;
 
     @Override
@@ -34,7 +34,7 @@ class Fill extends Attributes {
     }
 
 
-    public static Attributes attributeFactory(Object o) {
+    public static attributes attributeFactory(Object o) {
         Fill tmp = new Fill();
         tmp.setAttrbute(o);
         return tmp;
@@ -48,7 +48,7 @@ class Fill extends Attributes {
 }
 
 
-class Stroke extends Attributes {
+class Stroke extends attributes {
     private Color color;
 
     @Override
@@ -69,7 +69,7 @@ class Stroke extends Attributes {
     }
 
 
-    public static Attributes attributeFactory(Object o) {
+    public static attributes attributeFactory(Object o) {
         Stroke tmp = new Stroke();
         tmp.setAttrbute(o);
         return tmp;

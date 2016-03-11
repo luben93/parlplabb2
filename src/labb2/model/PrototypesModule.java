@@ -22,7 +22,7 @@ public class PrototypesModule {
     }
 
     public static Prototype findAndCloneAttributes(String name, Object o){
-        Attributes a = (Attributes) findAndClone(name);
+        attributes a = (attributes) findAndClone(name);
         a.setAttrbute(o);
         return a;
     }

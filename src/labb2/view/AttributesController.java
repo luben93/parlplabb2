@@ -5,7 +5,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import labb2.model.*;
+import javafx.scene.paint.Color;
+import labb2.model.PrototypesModule;
+import labb2.model.Shape;
+import labb2.model.attributes;
+
 
 /**
  * Created by luben on 2016-03-09.
@@ -29,10 +33,11 @@ public class AttributesController extends Controller {
     }
 
     private void addAttribute(String s){
-        ColorPicker attribute=new ColorPicker();
+        ColorPicker attribute=new ColorPicker();//TODO check attribute object/tool type??
         pane.addRow( row++,new Label(s),attribute);
-        System.out.printf("hej");
-        attribute.setOnAction(event -> main.attributeClicked( (Attributes) PrototypesModule.findAndCloneAttributes(s,attribute.getValue())));
+//        System.out.printf("hej");
+        attribute.setOnAction(event -> main.attributeClicked( (attributes) PrototypesModule.findAndCloneAttributes(s,attribute.getValue())));
+        attribute.setValue(Color.BLACK);
     }
 
     @Override
