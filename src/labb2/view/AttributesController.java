@@ -21,8 +21,6 @@ public class AttributesController extends Controller {
 
 
     private int row=1;
-//    private ColorPicker fill;
-//    private ColorPicker stroke;
 
 
     @Override
@@ -43,7 +41,6 @@ public class AttributesController extends Controller {
         pane=new GridPane();
         anchorPane.getChildren().add(pane);
         tool.setText(a.getName());
-        //TODO show relevent attributes for prototype
         a.getAttributes().forEach(s -> addAttribute(s));
     }
 }

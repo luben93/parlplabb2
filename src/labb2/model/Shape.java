@@ -52,6 +52,7 @@ public abstract class Shape implements Prototype, Command {
         return "Shape "+getName()+" {" +
                 "start=" + start +
                 ", stop=" + stop +
+                ", hash=" + hashCode() +
                 '}';
     }
 }

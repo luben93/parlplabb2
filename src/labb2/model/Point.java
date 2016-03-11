@@ -39,4 +39,9 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public Object clone(){
+        return new Point(x,y);
+    }
 }
