@@ -85,7 +85,7 @@ public class Main extends Application {
             // Give the controller access to the main app.
             CanvasController canvasController = loader.getController();
             canvasController.setMainApp(this);
-            canvasController.test();
+//            canvasController.test();
             return canvasController;
 
         } catch (IOException e) {
