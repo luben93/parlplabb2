@@ -1,9 +1,10 @@
 package labb2.model;
 
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by luben on 2016-03-09.
@@ -17,8 +18,9 @@ interface Prototype {
 class Fill extends attributes implements Serializable {
 
     @Override
-    public void execute(GraphicsContext con) {
-        con.setFill(Color.valueOf(attribute));
+    public Fill execute(List<Canvas> c) {
+        c.get(layer).getGraphicsContext2D().setFill(Color.valueOf(attribute));
+        return this;
     }
 
     @Override
@@ -44,8 +46,10 @@ class Fill extends attributes implements Serializable {
 class Stroke extends attributes implements Serializable {
 
     @Override
-    public void execute(GraphicsContext con) {
-        con.setStroke(Color.valueOf(attribute));
+    public Stroke execute(List<Canvas> c) {
+        c.get(layer).getGraphicsContext2D().setStroke(Color.valueOf(attribute));
+//        System.out.println(this+" "+con);
+        return this;
     }
 
     @Override
@@ -84,7 +88,7 @@ class Square extends Shape {
         return "square";
     }
 
-    public void execute(GraphicsContext con) {
+    public Square execute(List<Canvas> c) {
         int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
         int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
         int xStart = start.getX();
@@ -101,7 +105,8 @@ class Square extends Shape {
         }
         xStop = Math.abs(xStop - xStart);
         yStop = Math.abs(yStop - yStart);
-        con.fillRect(xStart, yStart, xStop, yStop);
+        c.get(layer).getGraphicsContext2D().fillRect(xStart, yStart, xStop, yStop);
+        return this;
     }
 }
 
@@ -199,10 +204,11 @@ class Line extends Shape {
         return "line";
     }
 
-    public void execute(GraphicsContext con) {
-        con.strokeLine(start.getX(), start.getY(), stop.getX(), stop.getY());
+    public Line execute(List<Canvas> c) {
+        c.get(layer).getGraphicsContext2D().strokeLine(start.getX(), start.getY(), stop.getX(), stop.getY());
 //        System.out.println(this+" "+con);
 //        System.out.println("lien: execute");
+        return this;
     }
 
 }

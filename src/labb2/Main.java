@@ -30,9 +30,13 @@ public class Main extends Application {
     private MenyController  rootController;
     private AttributesController attributesController;
     public static Deque<Command> commands=new ArrayDeque<Command>();
+//    private Stack<Canvas> commands = new Stack<>();
 
     final private FileChooser fileChooser = new FileChooser();
 
+    public  int getCanvasListSize() {
+        return canvasController.getCanvasListSize();
+    }
 
 
     @Override
@@ -74,6 +78,10 @@ public class Main extends Application {
 
     public void undo(){
         canvasController.undoLast();
+    }
+
+    public void restore(int i){
+        canvasController.restoreSave(i);
     }
 
     public void clicked(Shape a){
@@ -138,5 +146,9 @@ public class Main extends Application {
 
     public void attributeClicked(Command c) {
         canvasController.attributeClicked(c);
+    }
+
+    public void resetAttributes(Shape tool) {
+        attributesController.toolClicked(tool);
     }
 }

@@ -40,13 +40,16 @@ public class MenyController extends Controller {
 
             FileInputStream fileIn = new FileInputStream(file.getPath());
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            Main.commands = (Deque<Command>) in.readObject();
+            int i = in.readInt();
+
+            Deque<Command> tmp= (Deque<Command>) in.readObject();
+            tmp.forEach(command -> Main.commands.push(command));
             in.close();
             fileIn.close();
             System.out.println(Main.commands.size());
             Main.commands.forEach(System.out::println);
             Main.commands.push((Command) PrototypesModule.findAndClone("line"));
-            main.undo();
+            main.restore(i);
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -71,18 +74,19 @@ public class MenyController extends Controller {
 
         if (file != null) {
 
-            SaveFile(Main.commands, file);
+            SaveFile(main.getCanvasListSize(),Main.commands, file);
 
         }
 
     }
 
-    private void SaveFile(Deque<Command> commands, File file){
+    private void SaveFile(int i,Deque<Command> commands, File file){
         try
         {
             //FileOutputStream fos = new FileOutputStream("tempdata.ser");
             FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeInt(i);
             oos.writeObject(commands);
             oos.close();
         }
