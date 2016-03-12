@@ -40,8 +40,6 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("VectorDrawer");
 
-
-
         rootController=initRootLayout();
         PrototypesModule.init();
 
@@ -49,6 +47,7 @@ public class Main extends Application {
         canvasController=showDrawArea();
         canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("stroke", Color.BLACK.toString()));
         canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK.toString()));
+
         toolsController= (ToolsController) showArea("tools", 0);
         attributesController= (AttributesController) showArea("attributes", 1);
     }

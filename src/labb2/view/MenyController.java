@@ -1,6 +1,5 @@
 package labb2.view;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
@@ -20,7 +19,6 @@ import java.util.logging.Logger;
  * Created by bulbatross on 2016-03-12.
  */
 public class MenyController extends Controller {
-    //    private GraphicsContext gc;
     final private FileChooser fileChooser = new FileChooser();
     private Desktop desktop = Desktop.getDesktop();
     @FXML
@@ -35,7 +33,6 @@ public class MenyController extends Controller {
     void load(ActionEvent actionEvent) {
 
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("SER", "*.ser")
         );
         File file = fileChooser.showOpenDialog(Main.primaryStage);
@@ -67,7 +64,6 @@ public class MenyController extends Controller {
         fileChooser.setTitle("Save Image");
         //Set extension filter
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("SER", "*.ser")
         );
 
@@ -85,11 +81,10 @@ public class MenyController extends Controller {
         try
         {
             //FileOutputStream fos = new FileOutputStream("tempdata.ser");
-            FileOutputStream fos = new FileOutputStream(file.getName());
+            FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(commands);
             oos.close();
-            System.out.printf("Serialized data is saved");
         }
         catch (Exception ex)
         {
@@ -98,17 +93,7 @@ public class MenyController extends Controller {
                     Level.SEVERE, null, ex
             );
         }
-        /*
-        try {
-            FileWriter fileWriter = null;
 
-            fileWriter = new FileWriter(file);
-            fileWriter.write(content);
-            fileWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(MenyController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
     }
     private void openFile(File file) {
         try {
@@ -125,25 +110,5 @@ public class MenyController extends Controller {
     public void toolClicked(Shape a) {
 
     }
-/**
- * MenuItem cmItem2 = new MenuItem("Save Image");
- cmItem2.setOnAction(new EventHandler<ActionEvent>() {
- public void handle(ActionEvent e) {
- FileChooser fileChooser = new FileChooser();
- fileChooser.setTitle("Save Image");
- System.out.println(pic.getId());
- File file = fileChooser.showSaveDialog(stage);
- if (file != null) {
- try {
- ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
- null), "png", file);
- } catch (IOException ex) {
- System.out.println(ex.getMessage());
- }
- }
- }
- }
- );
- */
 
 }
