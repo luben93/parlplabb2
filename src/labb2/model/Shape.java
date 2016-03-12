@@ -10,6 +10,13 @@ import java.util.List;
 public abstract class Shape implements Prototype, Command,Serializable {
     Point start;
     Point stop;
+    int layer;
+
+    public Shape setLayer(int layer) {
+        this.layer = layer;
+        return this;
+    }
+
     private List<String> attributes=new ArrayList<>();
 
     public Object clone() {
@@ -28,8 +35,9 @@ public abstract class Shape implements Prototype, Command,Serializable {
         return stop;
     }
 
-    public void setStop(Point stop) {
+    public Shape setStop(Point stop) {
         this.stop = stop;
+        return this;
     }
 
     Shape(Point start, Point stop){

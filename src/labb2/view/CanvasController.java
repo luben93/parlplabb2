@@ -4,28 +4,68 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import labb2.Main;
-import labb2.model.*;
+import labb2.model.Command;
+import labb2.model.Point;
+import labb2.model.Shape;
+
+import java.util.Stack;
 
 public class CanvasController extends Controller {
 
     @FXML
-    private Canvas canvas;
+    private Pane pane;
+
+    private Stack<Canvas> canvasList = new Stack<>();
 
     private GraphicsContext gc;
     private Shape current = null;
     private Point start = null;
 
 
+//    public void undoLast() {
+//        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        if (!Main.commands.isEmpty()) {
+//            Command last = Main.commands.pop();//TODO last set to current??
+////            System.out.println("pop " + last);
+//
+//            Command c =(Command) PrototypesModule.findAndCloneAttributes("stroke", Color.BLACK.toString());
+//            c.execute(gc);
+//            Main.commands.addLast(c);
+//            c= (Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK.toString());
+//            c.execute(gc);
+//            Main.commands.addLast(c);
+//
+//
+//            Main.commands.stream().forEachOrdered(command -> command.execute(gc));
+////            for (int i = 0; i < Main.commands.size(); i++) {
+////                Main.commands.peekLast().execute(gc);
+////                Main.commands.peekFirst().execute(gc);
+////            }
+//        }
+//    }
 
-    public void undoLast() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        if (!Main.commands.isEmpty()) {
-            Command last = Main.commands.pop();//TODO last set to current??
-//            System.out.println("pop " + last);
-            Main.commands.forEach(command -> command.execute(gc));
+    public void undoLast(){
+        if(!canvasList.empty()) {
+            try {
+                pane.getChildren().remove(canvasList.pop());
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    public void restoreSave(int index){
+        for (int i = 0; i < index; i++) {
+            canvasList.add(new Canvas(400,400));
+            pane.getChildren().add(canvasList.peek());
+        }
+//        pane.getChildren().addAll(canvasList);
+        Main.commands.forEach(command -> command.execute(canvasList));
+
+    }
+
 
     private void mouseClicked(Point p) {
         System.out.println(p);
@@ -34,11 +74,10 @@ public class CanvasController extends Controller {
                 start = p;
                 current.setStart(start);
             } else {
-                current.setStop(p);
-                current.execute(gc);
-                Main.commands.push(current);
-                start = null;
-                current= (Shape) current.clone();
+                Main.commands.push(current.setStop(p).setLayer(canvasList.size()-1).execute(canvasList));
+                current = (Shape) current.clone();
+                initialize();
+                main.resetAttributes(current);
             }
         }
     }
@@ -46,16 +85,23 @@ public class CanvasController extends Controller {
 
     public void toolClicked(Shape a) {
         current = a;
+        start = null;
     }
 
     @Override
     protected void initialize() {
-        gc = canvas.getGraphicsContext2D();
-        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(Point.pointFactory((int) t.getX(), (int) t.getY())));
+        start = null;
+        canvasList.add(new Canvas(400,400));
+        pane.getChildren().add(canvasList.peek());
+//        gc = canvasList.peek().getGraphicsContext2D();
+        canvasList.peek().addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(Point.pointFactory((int) t.getX(), (int) t.getY())));
     }
 
     public void attributeClicked(Command c) {
-        c.execute(gc);
-        Main.commands.push(c);
+        Main.commands.push(c.setLayer(canvasList.size()-1).execute(canvasList));
+    }
+
+    public int getCanvasListSize() {
+        return canvasList.size();
     }
 }
