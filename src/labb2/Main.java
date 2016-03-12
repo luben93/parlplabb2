@@ -15,6 +15,8 @@ import labb2.view.Controller;
 import labb2.view.ToolsController;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 public class Main extends Application {
@@ -25,7 +27,8 @@ public class Main extends Application {
     private CanvasController canvasController;
     private ToolsController toolsController;
     private AttributesController attributesController;
-    public static Stack<Command> commands=new Stack<>();
+    public static Deque<Command> commands=new ArrayDeque<Command>();
+
 
 
 

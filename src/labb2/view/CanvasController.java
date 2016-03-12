@@ -36,7 +36,7 @@ public class CanvasController extends Controller {
 
     public void undoLast() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        if (!Main.commands.empty()) {
+        if (!Main.commands.isEmpty()) {
             Command last = Main.commands.pop();//TODO last set to current??
             System.out.println("pop " + last);
             Main.commands.forEach(shape -> shape.execute(gc));
