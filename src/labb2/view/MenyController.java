@@ -1,5 +1,6 @@
 package labb2.view;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
@@ -8,6 +9,7 @@ import javafx.stage.Stage;
 import labb2.Main;
 import labb2.model.Shape;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -33,6 +35,24 @@ public class MenyController extends  Controller {
         if (file != null) {
             openFile(file);
         }
+    }
+
+    @FXML
+    void save(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        //System.out.println(Main.commands);
+        fileChooser.showSaveDialog(Main.primaryStage);
+        /*
+        if (file != null) {
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
+                        null), "png", file);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        */
     }
 
     private void openFile(File file) {
