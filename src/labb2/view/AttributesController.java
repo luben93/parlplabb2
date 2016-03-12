@@ -36,7 +36,7 @@ public class AttributesController extends Controller {
         if (s.equals("fill") || s.equals("stroke")) {
             ColorPicker attribute = new ColorPicker();//TODO check attribute object/tool type??
 //        System.out.printf("hej");
-            attribute.setOnAction(event -> main.attributeClicked((attributes) PrototypesModule.findAndCloneAttributes(s, attribute.getValue())));
+            attribute.setOnAction(event -> main.attributeClicked((attributes) PrototypesModule.findAndCloneAttributes(s, attribute.getValue().toString())));
             attribute.setValue(Color.BLACK);
             pane.addRow(row++, new Label(s),new Label(" "), attribute);
         }else if(s.equals("something else")){

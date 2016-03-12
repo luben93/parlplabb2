@@ -3,6 +3,8 @@ package labb2.model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
+
 /**
  * Created by luben on 2016-03-09.
  */
@@ -12,29 +14,20 @@ interface Prototype {
     String getName();
 }
 
-class Fill extends attributes {
-    private Color color;
+class Fill extends attributes implements Serializable {
 
     @Override
     public void execute(GraphicsContext con) {
-        con.setFill(color);
+        con.setFill(Color.valueOf(attribute));
     }
 
     @Override
     public Object clone() {
-        return Fill.attributeFactory(color);
-    }
-
-    @Override
-    public void setAttrbute(Object o) {
-        if (o instanceof Color) {
-            color = (Color) o;
-        }
-
+        return Fill.attributeFactory(attribute);
     }
 
 
-    public static attributes attributeFactory(Object o) {
+    public static attributes attributeFactory(String o) {
         Fill tmp = new Fill();
         tmp.setAttrbute(o);
         return tmp;
@@ -48,28 +41,21 @@ class Fill extends attributes {
 }
 
 
-class Stroke extends attributes {
-    private Color color;
+class Stroke extends attributes implements Serializable {
 
     @Override
     public void execute(GraphicsContext con) {
-        con.setStroke(color);
+        con.setStroke(Color.valueOf(attribute));
     }
 
     @Override
     public Object clone() {
-        return Stroke.attributeFactory(color);
-    }
-
-    @Override
-    public void setAttrbute(Object o) {
-        if (o instanceof Color) {
-            color = (Color) o;
-        }
+        return Stroke.attributeFactory(attribute);
     }
 
 
-    public static attributes attributeFactory(Object o) {
+
+    public static attributes attributeFactory(String o) {
         Stroke tmp = new Stroke();
         tmp.setAttrbute(o);
         return tmp;

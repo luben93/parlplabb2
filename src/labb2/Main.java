@@ -5,13 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
 import labb2.view.*;
-
 
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -47,6 +47,8 @@ public class Main extends Application {
 
 
         canvasController=showDrawArea();
+        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("stroke", Color.BLACK.toString()));
+        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK.toString()));
         toolsController= (ToolsController) showArea("tools", 0);
         attributesController= (AttributesController) showArea("attributes", 1);
     }

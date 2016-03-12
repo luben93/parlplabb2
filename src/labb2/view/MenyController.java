@@ -49,8 +49,8 @@ public class MenyController extends Controller {
             in.close();
             fileIn.close();
             //Main.commands.forEach(shape -> shape.execute(gc));
-            System.out.println(Main.commands.size());
-            Main.commands.forEach(System.out::println);
+//            System.out.println(Main.commands.size());
+//            Main.commands.forEach(System.out::println);
             Main.commands.push((Command) PrototypesModule.findAndClone("line"));
             main.undo();
 
