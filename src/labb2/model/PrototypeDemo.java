@@ -81,7 +81,7 @@ class Stroke extends attributes {
     }
 }
 
-class Square extends Shape implements java.io.Serializable{
+class Square extends Shape {
     Square(Point start, Point stop) {
         super(start, stop);
         getAttributes().add("fill");
@@ -119,7 +119,7 @@ class Square extends Shape implements java.io.Serializable{
     }
 }
 
-class Line extends Shape implements java.io.Serializable{
+class Line extends Shape {
     Line(Point start, Point stop) {
         super(start, stop);
         getAttributes().add("stroke");

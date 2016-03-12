@@ -1,12 +1,13 @@
 package labb2.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by luben on 2016-03-09.
  */
-public abstract class Shape implements Prototype, Command {
+public abstract class Shape implements Prototype, Command,Serializable {
     Point start;
     Point stop;
     private List<String> attributes=new ArrayList<>();

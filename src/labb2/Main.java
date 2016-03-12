@@ -10,14 +10,7 @@ import javafx.stage.Stage;
 import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
-import labb2.view.AttributesController;
-import labb2.view.CanvasController;
-import labb2.view.Controller;
-import labb2.view.ToolsController;
-
-
-
-
+import labb2.view.*;
 
 
 import java.io.IOException;
@@ -34,6 +27,7 @@ public class Main extends Application {
     private GridPane rigth;
     private CanvasController canvasController;
     private ToolsController toolsController;
+    private MenyController  rootController;
     private AttributesController attributesController;
     public static Deque<Command> commands=new ArrayDeque<Command>();
 
@@ -48,7 +42,7 @@ public class Main extends Application {
 
 
 
-        initRootLayout();
+        rootController=initRootLayout();
         PrototypesModule.init();
 
 
@@ -108,7 +102,7 @@ public class Main extends Application {
         return null;
     }
 
-    public void initRootLayout() {
+    public MenyController initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -123,10 +117,13 @@ public class Main extends Application {
             rigth = new GridPane();
             rootLayout.setRight(rigth);
 
-
+            MenyController controller = loader.getController();
+            controller.setMainApp(this);
+            return controller;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 

@@ -1,28 +1,25 @@
 package labb2.view;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import labb2.Main;
 import labb2.model.Command;
+import labb2.model.PrototypesModule;
 import labb2.model.Shape;
 
-import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.*;
 import java.util.Deque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.Desktop;
+
 /**
  * Created by bulbatross on 2016-03-12.
  */
-public class MenyController extends  Controller {
-    private GraphicsContext gc;
+public class MenyController extends Controller {
+    //    private GraphicsContext gc;
     final private FileChooser fileChooser = new FileChooser();
     private Desktop desktop = Desktop.getDesktop();
     @FXML
@@ -32,8 +29,9 @@ public class MenyController extends  Controller {
     void initialize() {
 
     }
+
     @FXML
-    void load (ActionEvent actionEvent) {
+    void load(ActionEvent actionEvent) {
         /*
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Images", "*.*"),
@@ -44,8 +42,7 @@ public class MenyController extends  Controller {
             openFile(file);
         }
         */
-        try
-        {
+        try {
             FileInputStream fileIn = new FileInputStream("/tmp/picture.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             Main.commands = (Deque<Command>) in.readObject();
@@ -53,13 +50,14 @@ public class MenyController extends  Controller {
             fileIn.close();
             //Main.commands.forEach(shape -> shape.execute(gc));
             System.out.println(Main.commands.size());
-            //Main.commands.forEach(shape -> shape.toString());
-        }catch(IOException i)
-        {
+            Main.commands.forEach(System.out::println);
+            Main.commands.push((Command) PrototypesModule.findAndClone("line"));
+            main.undo();
+
+        } catch (IOException i) {
             i.printStackTrace();
 
-        }catch(ClassNotFoundException c)
-        {
+        } catch (ClassNotFoundException c) {
             System.out.println("Command class not found");
             c.printStackTrace();
 
@@ -82,17 +80,17 @@ public class MenyController extends  Controller {
                 System.out.println(ex.getMessage());
             }
             */
-            try {
-                FileOutputStream fileOut =
-                        new FileOutputStream("/tmp/picture.ser");
-                ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(Main.commands);
-                out.close();
-                fileOut.close();
-                System.out.printf("Serialized data is saved in /tmp/picture.ser");
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("/tmp/picture.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(Main.commands);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in /tmp/picture.ser");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
         //}
 
     }
@@ -107,6 +105,7 @@ public class MenyController extends  Controller {
             );
         }
     }
+
     @Override
     public void toolClicked(Shape a) {
 
