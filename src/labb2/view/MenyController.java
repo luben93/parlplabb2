@@ -1,5 +1,6 @@
 package labb2.view;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
@@ -9,6 +10,7 @@ import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
 import java.util.Deque;
@@ -32,23 +34,19 @@ public class MenyController extends Controller {
 
     @FXML
     void load(ActionEvent actionEvent) {
-        /*
+
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("SER", "*.ser")
         );
         File file = fileChooser.showOpenDialog(Main.primaryStage);
-        if (file != null) {
-            openFile(file);
-        }
-        */
         try {
-            FileInputStream fileIn = new FileInputStream("/tmp/picture.ser");
+
+            FileInputStream fileIn = new FileInputStream(file.getPath());
             ObjectInputStream in = new ObjectInputStream(fileIn);
             Main.commands = (Deque<Command>) in.readObject();
             in.close();
             fileIn.close();
-            //Main.commands.forEach(shape -> shape.execute(gc));
             System.out.println(Main.commands.size());
             Main.commands.forEach(System.out::println);
             Main.commands.push((Command) PrototypesModule.findAndClone("line"));
@@ -66,35 +64,55 @@ public class MenyController extends Controller {
 
     @FXML
     void save(ActionEvent actionEvent) {
-        //FileChooser fileChooser = new FileChooser();
-        //fileChooser.setTitle("Save Image");
-        //System.out.println(Main.commands);
-        //File file = fileChooser.showSaveDialog(Main.primaryStage);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        //Set extension filter
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("SER", "*.ser")
+        );
 
-        //if (file != null) {
-            /*
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
-                        null), "png", file);
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-            */
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream("/tmp/picture.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(Main.commands);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in /tmp/picture.ser");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        File file = fileChooser.showSaveDialog(Main.primaryStage);
+
+        if (file != null) {
+
+            SaveFile(Main.commands, file);
+
         }
-        //}
+
+
 
     }
 
+    private void SaveFile(Deque<Command> commands, File file){
+        try
+        {
+            //FileOutputStream fos = new FileOutputStream("tempdata.ser");
+            FileOutputStream fos = new FileOutputStream(file.getName());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(commands);
+            oos.close();
+            System.out.printf("Serialized data is saved");
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(
+                    MenyController.class.getName()).log(
+                    Level.SEVERE, null, ex
+            );
+        }
+        /*
+        try {
+            FileWriter fileWriter = null;
+
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MenyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
+    }
     private void openFile(File file) {
         try {
             desktop.open(file);
