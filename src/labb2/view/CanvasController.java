@@ -2,7 +2,6 @@ package labb2.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import labb2.Main;
@@ -19,7 +18,6 @@ public class CanvasController extends Controller {
 
     private Stack<Canvas> canvasList = new Stack<>();
 
-    private GraphicsContext gc;
     private Shape current = null;
     private Point start = null;
 
@@ -63,7 +61,7 @@ public class CanvasController extends Controller {
         }
 //        pane.getChildren().addAll(canvasList);
         Main.commands.forEach(command -> command.execute(canvasList));
-
+        initialize();
     }
 
 
@@ -84,8 +82,8 @@ public class CanvasController extends Controller {
 
 
     public void toolClicked(Shape a) {
+        initialize();
         current = a;
-        start = null;
     }
 
     @Override
@@ -98,6 +96,7 @@ public class CanvasController extends Controller {
     }
 
     public void attributeClicked(Command c) {
+
         Main.commands.push(c.setLayer(canvasList.size()-1).execute(canvasList));
     }
 

@@ -41,7 +41,9 @@ public class MenyController extends Controller {
             FileInputStream fileIn = new FileInputStream(file.getPath());
             ObjectInputStream in = new ObjectInputStream(fileIn);
             int i = in.readInt();
-            Main.commands = (Deque<Command>) in.readObject();
+
+            Deque<Command> tmp= (Deque<Command>) in.readObject();
+            tmp.forEach(command -> Main.commands.push(command));
             in.close();
             fileIn.close();
             System.out.println(Main.commands.size());
