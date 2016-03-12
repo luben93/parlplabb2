@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import labb2.model.Command;
 import labb2.model.PrototypesModule;
@@ -14,14 +15,21 @@ import labb2.view.CanvasController;
 import labb2.view.Controller;
 import labb2.view.ToolsController;
 
+
+
+
+
+
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
+
 
 public class Main extends Application {
 
-    private Stage primaryStage;
+
+
+    public static Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
     private CanvasController canvasController;
@@ -29,7 +37,7 @@ public class Main extends Application {
     private AttributesController attributesController;
     public static Deque<Command> commands=new ArrayDeque<Command>();
 
-
+    final private FileChooser fileChooser = new FileChooser();
 
 
 
@@ -37,6 +45,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("VectorDrawer");
+
+
 
         initRootLayout();
         PrototypesModule.init();
@@ -53,6 +63,7 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/"+path+".fxml"));
             GridPane tools = (GridPane) loader.load();
+
 
             rigth.add(tools, 0, row);
             // Give the controller access to the main app.
