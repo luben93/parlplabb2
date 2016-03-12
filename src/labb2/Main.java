@@ -39,6 +39,10 @@ public class Main extends Application {
     }
 
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;

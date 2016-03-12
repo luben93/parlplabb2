@@ -127,7 +127,7 @@ class Oval extends Shape {
         return "oval";
     }
 
-    public void execute(GraphicsContext con) {
+    public Oval execute(List<Canvas> c) {
         int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
         int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
         int xStart = start.getX();
@@ -144,7 +144,8 @@ class Oval extends Shape {
         }
         xStop = Math.abs(xStop - xStart);
         yStop = Math.abs(yStop - yStart);
-        con.fillOval(xStart, yStart, xStop, yStop);
+        c.get(layer).getGraphicsContext2D().fillOval(xStart, yStart, xStop, yStop);
+        return this;
     }
 }
 
@@ -165,7 +166,7 @@ class Polygon extends Shape {
         return "polygon";
     }
 
-    public void execute(GraphicsContext con) {
+    public Polygon execute(List<Canvas> c) {
         int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
         int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
         int xStart = start.getX();
@@ -182,10 +183,10 @@ class Polygon extends Shape {
         }
 
 
-        con.fillPolygon(new double[]{(double) xStart,(double) (xStart+xStop)/2, (double) xStop, (double) (xStart+xStop)/2},
+        c.get(layer).getGraphicsContext2D().fillPolygon(new double[]{(double) xStart,(double) (xStart+xStop)/2, (double) xStop, (double) (xStart+xStop)/2},
                 new double[] { (double) (yStart+yStop)/2, (double) yStart, (double) (yStart+yStop)/2, (double) yStop},
                 4);
-
+        return this;
     }
 }
 

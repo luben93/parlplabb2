@@ -1,7 +1,8 @@
 package labb2.view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.stage.FileChooser;
 import labb2.Main;
@@ -30,7 +31,13 @@ public class MenyController extends Controller {
     }
 
     @FXML
-    void load(ActionEvent actionEvent) {
+    void close() {
+        new Alert(Alert.AlertType.CONFIRMATION, "do you want to save").showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> save());
+        System.exit(0);
+    }
+
+    @FXML
+    void load() {
 
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("SER", "*.ser")
@@ -42,7 +49,7 @@ public class MenyController extends Controller {
             ObjectInputStream in = new ObjectInputStream(fileIn);
             int i = in.readInt();
 
-            Deque<Command> tmp= (Deque<Command>) in.readObject();
+            Deque<Command> tmp = (Deque<Command>) in.readObject();
             tmp.forEach(command -> Main.commands.push(command));
             in.close();
             fileIn.close();
@@ -62,7 +69,7 @@ public class MenyController extends Controller {
     }
 
     @FXML
-    void save(ActionEvent actionEvent) {
+    void save() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         //Set extension filter
@@ -74,24 +81,21 @@ public class MenyController extends Controller {
 
         if (file != null) {
 
-            SaveFile(main.getCanvasListSize(),Main.commands, file);
+            SaveFile(main.getCanvasListSize(), Main.commands, file);
 
         }
 
     }
 
-    private void SaveFile(int i,Deque<Command> commands, File file){
-        try
-        {
+    private void SaveFile(int i, Deque<Command> commands, File file) {
+        try {
             //FileOutputStream fos = new FileOutputStream("tempdata.ser");
             FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeInt(i);
             oos.writeObject(commands);
             oos.close();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(
                     MenyController.class.getName()).log(
                     Level.SEVERE, null, ex
@@ -99,6 +103,7 @@ public class MenyController extends Controller {
         }
 
     }
+
     private void openFile(File file) {
         try {
             desktop.open(file);
