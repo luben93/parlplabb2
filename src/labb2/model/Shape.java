@@ -37,6 +37,10 @@ public abstract class Shape implements Prototype, Command {
         this.stop = stop;
     }
 
+    Shape () {  //An empty contructor is needed for the subclasses being able to be serialized
+
+    }
+
 //    public String toString(){
 //        return getName();
 //    }
