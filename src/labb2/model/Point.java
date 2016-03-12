@@ -1,9 +1,11 @@
 package labb2.model;
 
+import java.io.Serializable;
+
 /**
  * Created by luben on 2016-03-10.
  */
-public class Point {
+public class Point implements Serializable{
     private int x,y;
 
     public int getX() {

@@ -88,6 +88,8 @@ class Square extends Shape {
 
     }
 
+
+
     public Object clone() {
         return new Square(start, stop);
     }
