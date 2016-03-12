@@ -10,7 +10,6 @@ import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
 import java.util.Deque;
@@ -79,8 +78,6 @@ public class MenyController extends Controller {
             SaveFile(Main.commands, file);
 
         }
-
-
 
     }
 

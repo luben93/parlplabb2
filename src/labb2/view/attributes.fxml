@@ -40,7 +40,7 @@
                     </rowConstraints>
                     <children>
                         <!--<Label text="attrbutes" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
-                        <Label fx:id="tool" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="tool" text=" " GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                         <!--<Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />-->
                         <!---->

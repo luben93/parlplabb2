@@ -17,29 +17,13 @@ public class CanvasController extends Controller {
     private Point start = null;
 
 
-    public void test() {
-
-        Shape line = (Shape) PrototypesModule.findAndClone("line");
-        Shape square = (Shape) PrototypesModule.findAndClone("square");
-        Point zero = Point.pointFactory(0, 0);
-        Point mid = Point.pointFactory(30, 30);
-        Point end = Point.pointFactory(60, 60);
-        line.setStart(zero);
-        line.setStop(mid);
-        square.setStart(mid);
-        square.setStop(end);
-        line.execute(gc);
-        square.execute(gc);
-
-
-    }
 
     public void undoLast() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         if (!Main.commands.isEmpty()) {
             Command last = Main.commands.pop();//TODO last set to current??
-            System.out.println("pop " + last);
-            Main.commands.forEach(shape -> shape.execute(gc));
+//            System.out.println("pop " + last);
+            Main.commands.forEach(command -> command.execute(gc));
         }
     }
 
