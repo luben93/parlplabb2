@@ -54,7 +54,7 @@ public class CanvasController extends Controller {
             } else {
                 current.setStop(p);
                 current.execute(gc);
-                Main.commands.push(current);
+                main.getCommands().add(current);
                 start = null;
                 current= (Shape) current.clone();
             }
@@ -74,6 +74,6 @@ public class CanvasController extends Controller {
 
     public void attributeClicked(Command c) {
         c.execute(gc);
-        Main.commands.push(c);
+        main.getCommands().add(c);
     }
 }

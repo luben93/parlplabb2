@@ -34,7 +34,7 @@ public class Main extends Application {
     final private FileChooser fileChooser = new FileChooser();
 
     //    private static Stack<Command> commands = new Stack<>();
-    private ObservableList<Command> observableCommands = FXCollections.observableList(commands);
+    private ObservableList<Command> observableCommands = FXCollections.observableArrayList(commands);
 
 
     @Override
