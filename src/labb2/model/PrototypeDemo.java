@@ -105,6 +105,44 @@ class Square extends Shape {
     }
 }
 
+class Oval extends Shape {
+    Oval(Point start, Point stop) {
+        super(start, stop);
+        getAttributes().add("fill");
+
+    }
+
+
+
+    public Object clone() {
+        return new Oval(start, stop);
+    }
+
+    public String getName() {
+        return "oval";
+    }
+
+    public void execute(GraphicsContext con) {
+        int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
+        int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
+        int xStart = start.getX();
+        int yStart = start.getY();
+        if (xStop < xStart) {
+            int tmp = xStart;
+            xStart = xStop;
+            xStop = tmp;
+        }
+        if (yStop < yStart) {
+            int tmp = yStart;
+            yStart = yStop;
+            yStop = tmp;
+        }
+        xStop = Math.abs(xStop - xStart);
+        yStop = Math.abs(yStop - yStart);
+        con.fillOval(xStart, yStart, xStop, yStop);
+    }
+}
+
 class Line extends Shape {
     Line(Point start, Point stop) {
         super(start, stop);
@@ -135,6 +173,7 @@ public class PrototypeDemo {
         Point zero = Point.pointFactory(0, 0);
         PrototypesModule.addPrototype(new Line(zero, zero));
         PrototypesModule.addPrototype(new Square(zero, zero));
+        PrototypesModule.addPrototype(new Oval(zero, zero));
         PrototypesModule.addPrototype(new Fill());
         PrototypesModule.addPrototype(new Stroke());
     }
