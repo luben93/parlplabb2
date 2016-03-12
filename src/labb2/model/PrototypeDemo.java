@@ -143,6 +143,47 @@ class Oval extends Shape {
     }
 }
 
+class Polygon extends Shape {
+    Polygon(Point start, Point stop) {
+        super(start, stop);
+        getAttributes().add("fill");
+
+    }
+
+
+
+    public Object clone() {
+        return new Polygon(start, stop);
+    }
+
+    public String getName() {
+        return "polygon";
+    }
+
+    public void execute(GraphicsContext con) {
+        int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
+        int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
+        int xStart = start.getX();
+        int yStart = start.getY();
+        if (xStop < xStart) {
+            int tmp = xStart;
+            xStart = xStop;
+            xStop = tmp;
+        }
+        if (yStop < yStart) {
+            int tmp = yStart;
+            yStart = yStop;
+            yStop = tmp;
+        }
+
+
+        con.fillPolygon(new double[]{(double) xStart,(double) (xStart+xStop)/2, (double) xStop, (double) (xStart+xStop)/2},
+                new double[] { (double) (yStart+yStop)/2, (double) yStart, (double) (yStart+yStop)/2, (double) yStop},
+                4);
+
+    }
+}
+
 class Line extends Shape {
     Line(Point start, Point stop) {
         super(start, stop);
@@ -174,6 +215,7 @@ public class PrototypeDemo {
         PrototypesModule.addPrototype(new Line(zero, zero));
         PrototypesModule.addPrototype(new Square(zero, zero));
         PrototypesModule.addPrototype(new Oval(zero, zero));
+        PrototypesModule.addPrototype(new Polygon(zero, zero));
         PrototypesModule.addPrototype(new Fill());
         PrototypesModule.addPrototype(new Stroke());
     }
