@@ -21,7 +21,7 @@ public class PrototypesModule {
         return (Prototype) p.clone();
     }
 
-    public static Prototype findAndCloneAttributes(String name, Object o){
+    public static Prototype findAndCloneAttributes(String name, String o){
         attributes a = (attributes) findAndClone(name);
         a.setAttrbute(o);
         return a;

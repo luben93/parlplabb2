@@ -1,19 +1,17 @@
 package labb2;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
 import labb2.view.*;
-
 
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -22,7 +20,9 @@ import java.util.Deque;
 
 public class Main extends Application {
 
-    private Stage primaryStage;
+
+
+    public static Stage primaryStage;
     private BorderPane rootLayout;
     private GridPane rigth;
     private CanvasController canvasController;
@@ -30,44 +30,43 @@ public class Main extends Application {
     private MenyController  rootController;
     private AttributesController attributesController;
     public static Deque<Command> commands=new ArrayDeque<Command>();
+//    private Stack<Canvas> commands = new Stack<>();
 
     final private FileChooser fileChooser = new FileChooser();
 
-    //    private static Stack<Command> commands = new Stack<>();
-    private ObservableList<Command> observableCommands = FXCollections.observableArrayList(commands);
+    public  int getCanvasListSize() {
+        return canvasController.getCanvasListSize();
+    }
 
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("VectorDrawer");
 
-
-
         rootController=initRootLayout();
         PrototypesModule.init();
 
 
         canvasController=showDrawArea();
+        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("stroke", Color.BLACK.toString()));
+        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK.toString()));
+
         toolsController= (ToolsController) showArea("tools", 0);
         attributesController= (AttributesController) showArea("attributes", 1);
     }
 
-
-//    public ObservableList<Command> getObservableCommands() {
-//        return observableCommands;
-//    }
-
-    public ObservableList<Command> getCommands() {
-        return observableCommands;
-    }
-
-    private Controller showArea(String path, int row) {
+    private Controller showArea(String path,int row) {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/"+path+".fxml"));
             GridPane tools = (GridPane) loader.load();
+
 
             rigth.add(tools, 0, row);
             // Give the controller access to the main app.
@@ -83,6 +82,10 @@ public class Main extends Application {
 
     public void undo(){
         canvasController.undoLast();
+    }
+
+    public void restore(int i){
+        canvasController.restoreSave(i);
     }
 
     public void clicked(Shape a){
@@ -147,5 +150,9 @@ public class Main extends Application {
 
     public void attributeClicked(Command c) {
         canvasController.attributeClicked(c);
+    }
+
+    public void resetAttributes(Shape tool) {
+        attributesController.toolClicked(tool);
     }
 }

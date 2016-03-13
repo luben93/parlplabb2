@@ -1,7 +1,8 @@
 package labb2.view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.stage.FileChooser;
 import labb2.Main;
@@ -19,7 +20,6 @@ import java.util.logging.Logger;
  * Created by bulbatross on 2016-03-12.
  */
 public class MenyController extends Controller {
-    //    private GraphicsContext gc;
     final private FileChooser fileChooser = new FileChooser();
     private Desktop desktop = Desktop.getDesktop();
     @FXML
@@ -31,28 +31,32 @@ public class MenyController extends Controller {
     }
 
     @FXML
-    void load(ActionEvent actionEvent) {
-        /*
+    void close() {
+        new Alert(Alert.AlertType.CONFIRMATION, "do you want to save").showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> save());
+        System.exit(0);
+    }
+
+    @FXML
+    void load() {
+
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("SER", "*.ser")
         );
         File file = fileChooser.showOpenDialog(Main.primaryStage);
-        if (file != null) {
-            openFile(file);
-        }
-        */
         try {
-            FileInputStream fileIn = new FileInputStream("/tmp/picture.ser");
+
+            FileInputStream fileIn = new FileInputStream(file.getPath());
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            Main.commands = (Deque<Command>) in.readObject();
+            int i = in.readInt();
+
+            Deque<Command> tmp = (Deque<Command>) in.readObject();
+            tmp.forEach(command -> Main.commands.push(command));
             in.close();
             fileIn.close();
-            //Main.commands.forEach(shape -> shape.execute(gc));
             System.out.println(Main.commands.size());
             Main.commands.forEach(System.out::println);
             Main.commands.push((Command) PrototypesModule.findAndClone("line"));
-            main.undo();
+            main.restore(i);
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -65,33 +69,38 @@ public class MenyController extends Controller {
     }
 
     @FXML
-    void save(ActionEvent actionEvent) {
-        //FileChooser fileChooser = new FileChooser();
-        //fileChooser.setTitle("Save Image");
-        //System.out.println(Main.commands);
-        //File file = fileChooser.showSaveDialog(Main.primaryStage);
+    void save() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        //Set extension filter
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("SER", "*.ser")
+        );
 
-        //if (file != null) {
-            /*
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
-                        null), "png", file);
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-            */
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream("/tmp/picture.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(Main.commands);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in /tmp/picture.ser");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        File file = fileChooser.showSaveDialog(Main.primaryStage);
+
+        if (file != null) {
+
+            SaveFile(main.getCanvasListSize(), Main.commands, file);
+
         }
-        //}
+
+    }
+
+    private void SaveFile(int i, Deque<Command> commands, File file) {
+        try {
+            //FileOutputStream fos = new FileOutputStream("tempdata.ser");
+            FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeInt(i);
+            oos.writeObject(commands);
+            oos.close();
+        } catch (Exception ex) {
+            Logger.getLogger(
+                    MenyController.class.getName()).log(
+                    Level.SEVERE, null, ex
+            );
+        }
 
     }
 
@@ -110,25 +119,5 @@ public class MenyController extends Controller {
     public void toolClicked(Shape a) {
 
     }
-/**
- * MenuItem cmItem2 = new MenuItem("Save Image");
- cmItem2.setOnAction(new EventHandler<ActionEvent>() {
- public void handle(ActionEvent e) {
- FileChooser fileChooser = new FileChooser();
- fileChooser.setTitle("Save Image");
- System.out.println(pic.getId());
- File file = fileChooser.showSaveDialog(stage);
- if (file != null) {
- try {
- ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
- null), "png", file);
- } catch (IOException ex) {
- System.out.println(ex.getMessage());
- }
- }
- }
- }
- );
- */
 
 }
