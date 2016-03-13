@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center"  prefWidth="200" xmlns="http://javafx.com/javafx/null"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.ToolsController">
+<GridPane alignment="center" prefWidth="200" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labb2.view.ToolsController">
     <children>
         <GridPane GridPane.columnIndex="0">
-            <Label text="tools"/>
+            <Label text="tools" />
             <MenuButton fx:id="shapes" mnemonicParsing="false" text="shapes">
                 <items>
 
                 </items>
             </MenuButton>
-            <Button mnemonicParsing="false" onAction="#undo" text="undo" GridPane.columnIndex="0"
-                    GridPane.rowIndex="1"/>
+            <Button mnemonicParsing="false" onAction="#undo" text="undo" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
-        <TableView prefHeight="200" prefWidth="75.0" GridPane.columnIndex="1" fx:id="undoList">
-            <columns>
-                <TableColumn prefWidth="75.0" text="commands" fx:id="commandColumn"/>
-            </columns>
-        </TableView>
-        <MenuButton fx:id="commands" mnemonicParsing="false" text="objects" GridPane.rowIndex="1">
-
-        </MenuButton>
-        <Button layoutX="16.0" layoutY="100.0" mnemonicParsing="false" text="select object" onAction="#select"/>
+      <ChoiceBox prefWidth="150.0" GridPane.rowIndex="2" fx:id="selectComands"/>
     </children>
     <columnConstraints>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
+        <ColumnConstraints />
+        <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
+        <RowConstraints />
+        <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
 </GridPane>

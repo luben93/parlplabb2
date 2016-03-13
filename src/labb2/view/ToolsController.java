@@ -2,14 +2,13 @@ package labb2.view;
 
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import labb2.Main;
 import labb2.model.Command;
 import labb2.model.PrototypesModule;
 import labb2.model.Shape;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by luben on 2016-03-09.
@@ -23,6 +22,8 @@ public class ToolsController extends Controller {
     private TableColumn<Command,String> commandColumn;
     @FXML
     private MenuButton commands;
+    @FXML
+    private ChoiceBox selectComands;
 
 //    private ObservableList<Command> observableCommands= FXCollections.observableList(Main.getCommands());
 
@@ -31,7 +32,7 @@ public class ToolsController extends Controller {
     protected void initialize() {
         PrototypesModule.listShapeNames().forEach(s -> shapes.getItems().add(new MenuItem(s)));
         shapes.getItems().forEach(menuItem -> menuItem.setOnAction(event -> selected(menuItem.getText())));
-
+        selectComands.getItems().addAll(Main.commands.stream().map(command -> command.getName()).collect(Collectors.toList()));//TODO mayebeybaby
 
 //        observableCommands.setAll(Main.getCommands());
 //        main.getCommands().addListener((ListChangeListener<? super Command>) observable -> {
