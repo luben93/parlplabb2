@@ -25,6 +25,11 @@ public abstract class attributes implements Command, Prototype,Serializable {
     }
 
     @Override
+    public int getLayer() {
+        return layer;
+    }
+
+    @Override
     public String toString() {
         return "attributes{" +
                 "attribute='" + attribute + '\'' +

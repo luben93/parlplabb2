@@ -11,5 +11,7 @@ import java.util.List;
 public interface Command extends Serializable{
     Command execute(List<Canvas> c);
     Command setLayer(int layer);
+    String getName();
+    int getLayer();
 }
 

@@ -34,7 +34,11 @@ public class Main extends Application {
 
     final private FileChooser fileChooser = new FileChooser();
 
-    public  int getCanvasListSize() {
+    public int getCurrentLayer() {
+        return canvasController.getCurrentLayer();
+    }
+
+    public int getCanvasListSize() {
         return canvasController.getCanvasListSize();
     }
 

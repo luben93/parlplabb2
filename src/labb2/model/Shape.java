@@ -17,6 +17,11 @@ public abstract class Shape implements Prototype, Command,Serializable {
         return this;
     }
 
+    @Override
+    public int getLayer() {
+        return layer;
+    }
+
     private List<String> attributes=new ArrayList<>();
 
     public Object clone() {
