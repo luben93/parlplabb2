@@ -3,9 +3,9 @@ package labb2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import labb2.model.Command;
@@ -47,6 +47,14 @@ public class Main extends Application {
         return primaryStage;
     }
 
+    public void addCanvasLayer(Canvas l){
+        toolsController.addSelectCommands(l);
+    }
+
+    public void removeLayer(Canvas l){
+        toolsController.removeLayer(l);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -57,8 +65,8 @@ public class Main extends Application {
 
 
         canvasController=showDrawArea();
-        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("stroke", Color.BLACK.toString()));
-        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK.toString()));
+//        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("stroke", Color.BLACK.toString()));
+//        canvasController.attributeClicked((Command) PrototypesModule.findAndCloneAttributes("fill", Color.BLACK.toString()));
 
         toolsController= (ToolsController) showArea("tools", 0);
         attributesController= (AttributesController) showArea("attributes", 1);
@@ -158,5 +166,10 @@ public class Main extends Application {
 
     public void resetAttributes(Shape tool) {
         attributesController.toolClicked(tool);
+    }
+
+    public void setCurrentLayer(Canvas currentLayer) {
+//        this.currentLayer = currentLayer;
+        canvasController.setCurrentLayer(currentLayer);
     }
 }

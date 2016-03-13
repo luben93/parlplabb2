@@ -1,5 +1,7 @@
 package labb2.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
@@ -16,10 +18,11 @@ public class CanvasController extends Controller {
     @FXML
     private Pane pane;
 
-    private Stack<Canvas> canvasList = new Stack<>();
+    private ObservableList<Canvas> canvasList = FXCollections.observableList(new Stack<Canvas>());
 
     private Shape current = null;
     private Point start = null;
+    private Canvas layer;
 
 
 //    public void undoLast() {
@@ -44,20 +47,22 @@ public class CanvasController extends Controller {
 //        }
 //    }
 
-    public void undoLast(){
-        if(!canvasList.empty()) {
+    public void undoLast() {
+        if (!canvasList.isEmpty()) {
             try {
-                pane.getChildren().remove(canvasList.pop());
+                Canvas tmp = canvasList.remove(canvasList.size());
+                pane.getChildren().remove(tmp);
+                main.removeLayer(tmp);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void restoreSave(int index){
+    public void restoreSave(int index) {
         for (int i = 0; i < index; i++) {
-            canvasList.add(new Canvas(400,400));
-            pane.getChildren().add(canvasList.peek());
+            canvasList.add(new Canvas(400, 400));
+            pane.getChildren().add(layer);
         }
 //        pane.getChildren().addAll(canvasList);
         Main.commands.forEach(command -> command.execute(canvasList));
@@ -72,8 +77,9 @@ public class CanvasController extends Controller {
                 start = p;
                 current.setStart(start);
             } else {
-                Main.commands.push(current.setStop(p).setLayer(canvasList.size()-1).execute(canvasList));
+                Main.commands.push(current.setStop(p).setLayer(canvasList.indexOf(layer)).execute(canvasList));
                 current = (Shape) current.clone();
+                main.addCanvasLayer(layer);
                 initialize();
                 main.resetAttributes(current);
             }
@@ -89,22 +95,40 @@ public class CanvasController extends Controller {
     @Override
     protected void initialize() {
         start = null;
-        canvasList.add(new Canvas(400,400));
-        pane.getChildren().add(canvasList.peek());
+        layer = new Canvas(400, 400);
+        canvasList.add(layer);
+        pane.getChildren().add(layer);
 //        gc = canvasList.peek().getGraphicsContext2D();
-        canvasList.peek().addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(Point.pointFactory((int) t.getX(), (int) t.getY())));
+        layer.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> mouseClicked(Point.pointFactory((int) t.getX(), (int) t.getY())));
+
+
+
     }
 
-    public void attributeClicked(Command c) {
 
-        Main.commands.push(c.setLayer(canvasList.size()-1).execute(canvasList));
+    public void attributeClicked(Command c) {
+        System.out.println("attribute on layer= "+canvasList.indexOf(layer)+" "+ layer);
+        int tmp = canvasList.indexOf(layer);
+        Main.commands.push(c.setLayer(tmp).execute(canvasList));
+//        if(c.getName().equals("setfill")){
+//            layer.getGraphicsContext2D().fill();
+//        }
+//        layer.getGraphicsContext2D().clearRect(0, 0, 400, 400);
+//        Main.commands.stream().filter(command1 -> command1.getLayer() == tmp).filter(command -> command instanceof Shape).map(command2 -> command2.execute(canvasList));
+//        Main.commands.stream().filter(command1 -> command1.getLayer() == tmp).filter(command -> command instanceof attributes).map(command2 -> command2.execute(canvasList));//select all commands that are attributes and current layer and reexecute them
+//        Main.commands.stream().filter(command1 -> command1.getLayer() == tmp).filter(command -> command instanceof Shape).map(command2 -> command2.execute(canvasList));
     }
 
     public int getCanvasListSize() {
         return canvasList.size();
     }
 
+    public void setCurrentLayer(Canvas l) {
+        layer = l;
+        System.out.println("setting layer to= "+canvasList.indexOf(layer)+ " "+layer);
+    }
+
     public int getCurrentLayer() {
-        return getCanvasListSize();//TODO implement with select commands
+        return canvasList.indexOf(layer);
     }
 }

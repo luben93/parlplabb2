@@ -67,10 +67,11 @@ public abstract class Shape implements Prototype, Command,Serializable {
 
     @Override
     public String toString() {
-        return "Shape "+getName()+" {" +
+        return "Shape{" +
                 "start=" + start +
                 ", stop=" + stop +
-                ", hash=" + hashCode() +
+                ", layer=" + layer +
+                ", attributes=" + attributes +
                 '}';
     }
 }

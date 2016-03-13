@@ -15,7 +15,7 @@ interface Prototype {
     String getName();
 }
 
-class LineWidth extends attributes implements Serializable{
+class LineWidth extends attributes implements Serializable {
 
     @Override
     public Object clone() {
@@ -33,15 +33,14 @@ class LineWidth extends attributes implements Serializable{
         return this;
     }
 
-    public static LineWidth attributeFactory(String o){
+    public static LineWidth attributeFactory(String o) {
         LineWidth tmp = new LineWidth();
         tmp.setAttrbute(o);
         return tmp;
     }
 }
 
-class setFilled extends attributes implements Serializable{
-
+class setFilled extends attributes implements Serializable {
 
 
     @Override
@@ -51,12 +50,19 @@ class setFilled extends attributes implements Serializable{
 
     @Override
     public Command execute(List<Canvas> c) {
-        c.get(layer).getGraphicsContext2D().fill();
+        if (attribute.equals("stroke")) {
+            c.get(layer).getGraphicsContext2D().stroke();
+        }else {
+            c.get(layer).getGraphicsContext2D().fill();
+        }
+        System.out.println("executing set fill" + layer);
         return this;
     }
 
-    public static setFilled attributeFactory(String s){
-        return new setFilled();
+    public static setFilled attributeFactory(String s) {
+        setFilled tmp = new setFilled();
+        tmp.setAttrbute(s);
+        return tmp;
     }
 
     @Override
@@ -108,7 +114,6 @@ class Stroke extends attributes implements Serializable {
     }
 
 
-
     public static Stroke attributeFactory(String o) {
         Stroke tmp = new Stroke();
         tmp.setAttrbute(o);
@@ -132,7 +137,6 @@ class Square extends Shape {
     }
 
 
-
     public Object clone() {
         return new Square(start, stop);
     }
@@ -142,23 +146,32 @@ class Square extends Shape {
     }
 
     public Square execute(List<Canvas> c) {
-        int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
-        int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
-        int xStart = start.getX();
-        int yStart = start.getY();
-        if (xStop < xStart) {
-            int tmp = xStart;
-            xStart = xStop;
-            xStop = tmp;
-        }
-        if (yStop < yStart) {
-            int tmp = yStart;
-            yStart = yStop;
-            yStop = tmp;
-        }
-        xStop = Math.abs(xStop - xStart);
-        yStop = Math.abs(yStop - yStart);
-        c.get(layer).getGraphicsContext2D().strokeRect(xStart, yStart, xStop, yStop);
+//        int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
+//        int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
+//        int xStart = start.getX();
+//        int yStart = start.getY();
+//        if (xStop < xStart) {
+//            int tmp = xStart;
+//            xStart = xStop;
+//            xStop = tmp;
+//        }
+//        if (yStop < yStart) {
+//            int tmp = yStart;
+//            yStart = yStop;
+//            yStop = tmp;
+//        }
+//        xStop = Math.abs(xStop - xStart);
+//        yStop = Math.abs(yStop - yStart);
+//        c.get(layer).getGraphicsContext2D().strokeRect(xStart, yStart, xStop, yStop);
+//        System.out.println(this);
+        c.get(layer).getGraphicsContext2D().beginPath();
+        c.get(layer).getGraphicsContext2D().moveTo(start.getX(), start.getY());
+        c.get(layer).getGraphicsContext2D().lineTo(start.getX(), stop.getY());
+        c.get(layer).getGraphicsContext2D().lineTo(stop.getX(), stop.getY());
+        c.get(layer).getGraphicsContext2D().lineTo(stop.getX(), start.getY());
+        c.get(layer).getGraphicsContext2D().closePath();
+//        c.get(layer).getGraphicsContext2D().fill();
+//        c.get(layer).getGraphicsContext2D().stroke();
         return this;
     }
 }
@@ -172,7 +185,6 @@ class Oval extends Shape {
         getAttributes().add("setfill");
 
     }
-
 
 
     public Object clone() {
@@ -217,7 +229,6 @@ class Polygon extends Shape {
     }
 
 
-
     public Object clone() {
         return new Polygon(start, stop);
     }
@@ -243,8 +254,8 @@ class Polygon extends Shape {
         }
 
 
-        c.get(layer).getGraphicsContext2D().strokePolygon(new double[]{(double) xStart,(double) (xStart+xStop)/2, (double) xStop, (double) (xStart+xStop)/2},
-                new double[] { (double) (yStart+yStop)/2, (double) yStart, (double) (yStart+yStop)/2, (double) yStop},
+        c.get(layer).getGraphicsContext2D().strokePolygon(new double[]{(double) xStart, (double) (xStart + xStop) / 2, (double) xStop, (double) (xStart + xStop) / 2},
+                new double[]{(double) (yStart + yStop) / 2, (double) yStart, (double) (yStart + yStop) / 2, (double) yStop},
                 4);
         return this;
     }
