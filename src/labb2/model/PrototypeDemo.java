@@ -15,6 +15,56 @@ interface Prototype {
     String getName();
 }
 
+class LineWidth extends attributes implements Serializable{
+
+    @Override
+    public Object clone() {
+        return LineWidth.attributeFactory(attribute);
+    }
+
+    @Override
+    public String getName() {
+        return "linewidth";
+    }
+
+    @Override
+    public Command execute(List<Canvas> c) {
+        c.get(layer).getGraphicsContext2D().setLineWidth(Double.valueOf(attribute));
+        return this;
+    }
+
+    public static LineWidth attributeFactory(String o){
+        LineWidth tmp = new LineWidth();
+        tmp.setAttrbute(o);
+        return tmp;
+    }
+}
+
+class setFilled extends attributes implements Serializable{
+
+
+
+    @Override
+    public String getName() {
+        return "setfill";
+    }
+
+    @Override
+    public Command execute(List<Canvas> c) {
+        c.get(layer).getGraphicsContext2D().fill();
+        return this;
+    }
+
+    public static setFilled attributeFactory(String s){
+        return new setFilled();
+    }
+
+    @Override
+    public Object clone() {
+        return attributeFactory(attribute);
+    }
+}
+
 class Fill extends attributes implements Serializable {
 
     @Override
@@ -29,7 +79,7 @@ class Fill extends attributes implements Serializable {
     }
 
 
-    public static attributes attributeFactory(String o) {
+    public static Fill attributeFactory(String o) {
         Fill tmp = new Fill();
         tmp.setAttrbute(o);
         return tmp;
@@ -59,7 +109,7 @@ class Stroke extends attributes implements Serializable {
 
 
 
-    public static attributes attributeFactory(String o) {
+    public static Stroke attributeFactory(String o) {
         Stroke tmp = new Stroke();
         tmp.setAttrbute(o);
         return tmp;
@@ -74,7 +124,10 @@ class Stroke extends attributes implements Serializable {
 class Square extends Shape {
     Square(Point start, Point stop) {
         super(start, stop);
+        getAttributes().add("stroke");
         getAttributes().add("fill");
+        getAttributes().add("linewidth");
+        getAttributes().add("setfill");
 
     }
 
@@ -105,7 +158,7 @@ class Square extends Shape {
         }
         xStop = Math.abs(xStop - xStart);
         yStop = Math.abs(yStop - yStart);
-        c.get(layer).getGraphicsContext2D().fillRect(xStart, yStart, xStop, yStop);
+        c.get(layer).getGraphicsContext2D().strokeRect(xStart, yStart, xStop, yStop);
         return this;
     }
 }
@@ -113,7 +166,10 @@ class Square extends Shape {
 class Oval extends Shape {
     Oval(Point start, Point stop) {
         super(start, stop);
+        getAttributes().add("stroke");
+        getAttributes().add("linewidth");
         getAttributes().add("fill");
+        getAttributes().add("setfill");
 
     }
 
@@ -144,7 +200,7 @@ class Oval extends Shape {
         }
         xStop = Math.abs(xStop - xStart);
         yStop = Math.abs(yStop - yStart);
-        c.get(layer).getGraphicsContext2D().fillOval(xStart, yStart, xStop, yStop);
+        c.get(layer).getGraphicsContext2D().strokeOval(xStart, yStart, xStop, yStop);
         return this;
     }
 }
@@ -152,7 +208,11 @@ class Oval extends Shape {
 class Polygon extends Shape {
     Polygon(Point start, Point stop) {
         super(start, stop);
+        getAttributes().add("stroke");
+        getAttributes().add("linewidth");
         getAttributes().add("fill");
+        getAttributes().add("setfill");
+
 
     }
 
@@ -183,7 +243,7 @@ class Polygon extends Shape {
         }
 
 
-        c.get(layer).getGraphicsContext2D().fillPolygon(new double[]{(double) xStart,(double) (xStart+xStop)/2, (double) xStop, (double) (xStart+xStop)/2},
+        c.get(layer).getGraphicsContext2D().strokePolygon(new double[]{(double) xStart,(double) (xStart+xStop)/2, (double) xStop, (double) (xStart+xStop)/2},
                 new double[] { (double) (yStart+yStop)/2, (double) yStart, (double) (yStart+yStop)/2, (double) yStop},
                 4);
         return this;
@@ -194,6 +254,10 @@ class Line extends Shape {
     Line(Point start, Point stop) {
         super(start, stop);
         getAttributes().add("stroke");
+        getAttributes().add("linewidth");
+//        getAttributes().add("fill");
+//        getAttributes().add("setfill");
+
     }
 
     public Object clone() {
@@ -225,6 +289,8 @@ public class PrototypeDemo {
         PrototypesModule.addPrototype(new Polygon(zero, zero));
         PrototypesModule.addPrototype(new Fill());
         PrototypesModule.addPrototype(new Stroke());
+        PrototypesModule.addPrototype(new LineWidth());
+        PrototypesModule.addPrototype(new setFilled());
     }
 
 }

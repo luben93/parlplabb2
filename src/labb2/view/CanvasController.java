@@ -103,4 +103,8 @@ public class CanvasController extends Controller {
     public int getCanvasListSize() {
         return canvasList.size();
     }
+
+    public int getCurrentLayer() {
+        return getCanvasListSize();//TODO implement with select commands
+    }
 }
