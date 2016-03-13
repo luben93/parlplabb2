@@ -50,7 +50,7 @@ public class CanvasController extends Controller {
     public void undoLast() {
         if (!canvasList.isEmpty()) {
             try {
-                Canvas tmp = canvasList.remove(canvasList.size());
+                Canvas tmp = canvasList.remove(canvasList.size()-1);
                 pane.getChildren().remove(tmp);
                 main.removeLayer(tmp);
             } catch (NullPointerException e) {
@@ -107,17 +107,9 @@ public class CanvasController extends Controller {
 
 
     public void attributeClicked(Command c) {
-        System.out.println("attribute on layer= "+canvasList.indexOf(layer)+" "+ layer);
         int tmp = canvasList.indexOf(layer);
         Main.commands.push(c.setLayer(tmp).execute(canvasList));
-//        if(c.getName().equals("setfill")){
-//            layer.getGraphicsContext2D().fill();
-//        }
-//        layer.getGraphicsContext2D().clearRect(0, 0, 400, 400);
-//        Main.commands.stream().filter(command1 -> command1.getLayer() == tmp).filter(command -> command instanceof Shape).map(command2 -> command2.execute(canvasList));
-//        Main.commands.stream().filter(command1 -> command1.getLayer() == tmp).filter(command -> command instanceof attributes).map(command2 -> command2.execute(canvasList));//select all commands that are attributes and current layer and reexecute them
-//        Main.commands.stream().filter(command1 -> command1.getLayer() == tmp).filter(command -> command instanceof Shape).map(command2 -> command2.execute(canvasList));
-    }
+   }
 
     public int getCanvasListSize() {
         return canvasList.size();
@@ -125,7 +117,6 @@ public class CanvasController extends Controller {
 
     public void setCurrentLayer(Canvas l) {
         layer = l;
-        System.out.println("setting layer to= "+canvasList.indexOf(layer)+ " "+layer);
     }
 
     public int getCurrentLayer() {

@@ -47,8 +47,11 @@ public class ToolsController extends Controller {
 //        main.commands.addListener((ListChangeListener<? super Command>) observable -> System.out.printf("hej"));//TODO add menuItem on listener
     }
 
-    public void addSelectCommands(Canvas c){
-        selectComands.getItems().add(c);
+    public void addSelectCommands(javafx.scene.canvas.Canvas c){
+        selectComands.getItems().add(0,c);
+
+//        selectComands.
+
     }
 
     @Override
@@ -64,7 +67,6 @@ public class ToolsController extends Controller {
         main.clicked((Shape) PrototypesModule.findAndClone(o));
         shapes.setText(o);
     }
-
 
 
     @FXML
