@@ -182,7 +182,7 @@ class Oval extends Shape {
         getAttributes().add("stroke");
         getAttributes().add("linewidth");
         getAttributes().add("fill");
-        getAttributes().add("setfill");
+//        getAttributes().add("setfill");
 
     }
 
@@ -213,12 +213,14 @@ class Oval extends Shape {
         xStop = Math.abs(xStop - xStart);
         yStop = Math.abs(yStop - yStart);
         c.get(layer).getGraphicsContext2D().strokeOval(xStart, yStart, xStop, yStop);
+
+
         return this;
     }
 }
 
-class Polygon extends Shape {
-    Polygon(Point start, Point stop) {
+class Triangle extends Shape {
+    Triangle(Point start, Point stop) {
         super(start, stop);
         getAttributes().add("stroke");
         getAttributes().add("linewidth");
@@ -230,14 +232,14 @@ class Polygon extends Shape {
 
 
     public Object clone() {
-        return new Polygon(start, stop);
+        return new Triangle(start, stop);
     }
 
     public String getName() {
-        return "polygon";
+        return "triangle";
     }
 
-    public Polygon execute(List<Canvas> c) {
+    public Triangle execute(List<Canvas> c) {
         int xStop = stop.getX();//Math.abs(stop.getX() - start.getX());
         int yStop = stop.getY();//Math.abs(stop.getY() - start.getY());
         int xStart = start.getX();
@@ -254,9 +256,15 @@ class Polygon extends Shape {
         }
 
 
-        c.get(layer).getGraphicsContext2D().strokePolygon(new double[]{(double) xStart, (double) (xStart + xStop) / 2, (double) xStop, (double) (xStart + xStop) / 2},
-                new double[]{(double) (yStart + yStop) / 2, (double) yStart, (double) (yStart + yStop) / 2, (double) yStop},
-                4);
+//        c.get(layer).getGraphicsContext2D().strokePolygon(new double[]{(double) xStart, (double) (xStart + xStop) / 2, (double) xStop, (double) (xStart + xStop) / 2},
+//                new double[]{(double) (yStart + yStop) / 2, (double) yStart, (double) (yStart + yStop) / 2, (double) yStop},
+//                4);
+        c.get(layer).getGraphicsContext2D().beginPath();
+        c.get(layer).getGraphicsContext2D().moveTo((xStart + xStop) / 2, start.getY());
+        c.get(layer).getGraphicsContext2D().lineTo(start.getX(), yStop);
+        c.get(layer).getGraphicsContext2D().lineTo(stop.getX(), yStop);
+        c.get(layer).getGraphicsContext2D().lineTo((xStart + xStop) / 2, start.getY());
+        c.get(layer).getGraphicsContext2D().closePath();
         return this;
     }
 }
@@ -297,7 +305,7 @@ public class PrototypeDemo {
         PrototypesModule.addPrototype(new Line(zero, zero));
         PrototypesModule.addPrototype(new Square(zero, zero));
         PrototypesModule.addPrototype(new Oval(zero, zero));
-        PrototypesModule.addPrototype(new Polygon(zero, zero));
+        PrototypesModule.addPrototype(new Triangle(zero, zero));
         PrototypesModule.addPrototype(new Fill());
         PrototypesModule.addPrototype(new Stroke());
         PrototypesModule.addPrototype(new LineWidth());
