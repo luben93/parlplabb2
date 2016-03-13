@@ -61,8 +61,9 @@ public class CanvasController extends Controller {
 
     public void restoreSave(int index) {
         for (int i = 0; i < index; i++) {
-            canvasList.add(new Canvas(400, 400));
-            pane.getChildren().add(layer);
+            Canvas tmp=new Canvas(400, 400);
+            canvasList.add(tmp);
+            pane.getChildren().add(tmp);
         }
 //        pane.getChildren().addAll(canvasList);
         Main.commands.forEach(command -> command.execute(canvasList));
