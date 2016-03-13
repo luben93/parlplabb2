@@ -80,8 +80,10 @@ public class CanvasController extends Controller {
                 Main.commands.push(current.setStop(p).setLayer(canvasList.indexOf(layer)).execute(canvasList));
                 current = (Shape) current.clone();
                 main.addCanvasLayer(layer);
+                layer.getGraphicsContext2D().stroke();
                 initialize();
                 main.resetAttributes(current);
+
             }
         }
     }
