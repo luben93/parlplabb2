@@ -171,5 +171,6 @@ public class Main extends Application {
     public void setCurrentLayer(Canvas currentLayer) {
 //        this.currentLayer = currentLayer;
         canvasController.setCurrentLayer(currentLayer);
+      //  attributesController.toolClicked((Shape) commands.stream().filter(command -> command instanceof Shape).filter(command1 -> command1.getLayer()==canvasController.getCurrentLayer()).findFirst().orElse(null));
     }
 }
